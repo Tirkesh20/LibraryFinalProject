@@ -13,7 +13,7 @@ public class Factory implements Command{
 
     public Command getCommand(String command){
         switch (command){
-            case "book":return new Factory();
+            case "book":return null;
             default:return new Home();
         }
     }

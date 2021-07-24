@@ -15,6 +15,7 @@ public class ConnectionBuilder {
     private ConnectionBuilder() {
 
     }
+
     static {
         try {
             Class.forName("org.postgresql.Driver");
@@ -24,6 +25,7 @@ public class ConnectionBuilder {
         }
 
     }
+
     public static Connection getConnection() {
         return connection;
     }
