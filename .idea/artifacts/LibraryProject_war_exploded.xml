@@ -6,6 +6,7 @@
         <exploded>true</exploded>
         <module>LibraryProject</module>
         <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="root">
@@ -22,6 +23,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.25" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.11.4" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
         </element>
       </element>
       <element id="directory" name="META-INF">

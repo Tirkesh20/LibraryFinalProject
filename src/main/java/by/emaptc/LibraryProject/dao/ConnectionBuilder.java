@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 
 public class ConnectionBuilder {
     private static final String DB_URL = "";
-    private static final String USER = "roo1";
+    private static final String USER = "root";
     private static final String PASS = "1234";
     public static Connection connection ;
 
