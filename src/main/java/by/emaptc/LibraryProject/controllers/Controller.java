@@ -1,9 +1,11 @@
 package by.emaptc.LibraryProject.controllers;
 
 import by.emaptc.LibraryProject.command.Command;
-import by.emaptc.LibraryProject.command.Factory;
+import by.emaptc.LibraryProject.command.CommandFactory;
 import by.emaptc.LibraryProject.command.Page;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.pool.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import javax.servlet.RequestDispatcher;
@@ -11,42 +13,60 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "MainServlet" , value = "/servlet")
 public class Controller extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doWork(req,resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
+
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doWork(req,resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        process(request, response);
     }
 
-    private void doWork(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    @Override
+    public void destroy() {
+        super.destroy();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.closePool();
+    }
 
-        String commandType=req.getParameter("command");
-        Factory factory=new Factory();
-        Command command =factory.getCommand(commandType);
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
+            CommandFactory commandFactory = new CommandFactory();
+            Command command = commandFactory.getCommand(req);
             Page page = command.execute(req);
-            if (page.isRedirect()){
-                doRedirect(req,resp,page.getUrl());
-            }else {
-                doForward(req,resp,page.getUrl());
+            boolean isRedirect = page.isRedirect();
+            if (isRedirect) {
+                redirect(page, req, resp);
+            } else {
+                forward(page, req, resp);
             }
-        }catch (ServiceException e){
-            throw new ServletException(e);
+        } catch (ServiceException e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new ServletException(e.getMessage(), e);
         }
+
+
     }
 
-    private void doRedirect(HttpServletRequest req,HttpServletResponse res,String url) throws IOException {
-        res.sendRedirect(url);
+    private void redirect(Page page, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String url = page.getUrl();
+        response.sendRedirect(request.getContextPath() + url);
     }
 
-    private void doForward(HttpServletRequest req, HttpServletResponse resp, String url) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-        dispatcher.forward(req, resp);
+    private void forward(Page page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = page.getUrl();
+        String messageKey = page.getMessageKey();
+//        if (!NONE_MESSAGE_KEY.equals(messageKey)) {
+//            request.setAttribute(MESSAGE_ATTRIBUTE, messageKey);
+//        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(url);
+        requestDispatcher.forward(request, response);
     }
 }

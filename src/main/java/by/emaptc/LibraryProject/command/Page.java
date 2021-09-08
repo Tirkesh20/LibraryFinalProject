@@ -3,6 +3,7 @@ package by.emaptc.LibraryProject.command;
 public class Page  {
     private String url;
     private boolean redirect;
+    private String messageKey;
 
     public Page(String url, boolean redirect) {
         this.url = url;
@@ -26,5 +27,9 @@ public class Page  {
 
     public void setRedirect(boolean redirect) {
         this.redirect = redirect;
+    }
+
+    public String getMessageKey() {
+        return messageKey;
     }
 }
