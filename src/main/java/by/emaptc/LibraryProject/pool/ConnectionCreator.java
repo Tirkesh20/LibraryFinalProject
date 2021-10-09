@@ -7,9 +7,11 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import by.emaptc.LibraryProject.entity.Entity;
 import org.apache.log4j.Logger;
 
-public class ConnectionCreator {
+public class ConnectionCreator  {
     private static final Logger LOGGER = Logger.getLogger(String.valueOf(ConnectionCreator.class));
 
     private static final String RESOURCE_BUNDLE_FILE_NAME = "database";

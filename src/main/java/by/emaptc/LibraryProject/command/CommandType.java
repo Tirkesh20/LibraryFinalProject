@@ -1,5 +1,13 @@
 package by.emaptc.LibraryProject.command;
 
+import by.emaptc.LibraryProject.command.adminCommand.ChangeBehaviorCommand;
+import by.emaptc.LibraryProject.command.adminCommand.DeleteUserCommand;
+import by.emaptc.LibraryProject.command.adminCommand.ShowUserCommand;
+import by.emaptc.LibraryProject.command.authCommand.LogOutCommand;
+import by.emaptc.LibraryProject.command.authCommand.LoginCommand;
+import by.emaptc.LibraryProject.command.authCommand.RegisterCommand;
+import by.emaptc.LibraryProject.command.common.LanguageCommand;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,25 +20,17 @@ public enum CommandType {
      * Admin commands.
      */
     SHOW_User(new ShowUserCommand()),
-    EDIT_RATE(new ChangeRateCommand()),
-    DELETE_USER(new DeleteTaxiCommand()),
-    RATE_HISTORY(new RateHistoryCommand()),
-    ADD_MODERATOR(new AddModeratorCommand()),
+    EDIT_RATE(new ChangeBehaviorCommand()),
+    DELETE_USER(new DeleteUserCommand()),
 
-    /**
-     * Common commands.
-     */
-    COMMON_LOGIN(new LoginCommand()),
-    COMMON_LOGOUT(new LogoutCommand()),
-    COMMON_REGISTER(new RegisterCommand()),
-    COMMON_CHANGE_LANGUAGE(new ChangeLanguageCommand()),
+//    /**
+//     * Common commands.
+//     */
+      COMMON_LOGIN(new LoginCommand()),
+      COMMON_LOGOUT(new LogOutCommand()),
+      COMMON_REGISTER(new RegisterCommand()),
+      COMMON_CHANGE_LANGUAGE(new LanguageCommand()),
 
-    /**
-     * Moderator Command's commands.
-     */
-    DISPATCHER(new DispatcherCommand()),
-    ACCEPT(new AcceptCommand()),
-    HISTORY(new HistoryCommand()),
     /**
      * Client Command
      */

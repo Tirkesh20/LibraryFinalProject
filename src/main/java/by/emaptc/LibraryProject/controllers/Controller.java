@@ -15,6 +15,7 @@ import javax.servlet.annotation.*;
 
 @WebServlet(name = "MainServlet" , value = "/servlet")
 public class Controller extends HttpServlet {
+   private final CommandFactory commandFactory = new CommandFactory();
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
 
     @Override
@@ -38,7 +39,6 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
-            CommandFactory commandFactory = new CommandFactory();
             Command command = commandFactory.getCommand(req);
             Page page = command.execute(req);
             boolean isRedirect = page.isRedirect();
@@ -63,9 +63,6 @@ public class Controller extends HttpServlet {
     private void forward(Page page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = page.getUrl();
         String messageKey = page.getMessageKey();
-//        if (!NONE_MESSAGE_KEY.equals(messageKey)) {
-//            request.setAttribute(MESSAGE_ATTRIBUTE, messageKey);
-//        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(url);
         requestDispatcher.forward(request, response);
     }

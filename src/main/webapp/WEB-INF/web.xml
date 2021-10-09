@@ -9,6 +9,11 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>by.emaptc.LibraryProject.controllers.Controller</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/servlet</url-pattern>
