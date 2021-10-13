@@ -6,17 +6,16 @@ import by.emaptc.LibraryProject.entity.enums.LiteratureType;
 import java.util.Objects;
 
 public class Literature extends Entity {
-    private String name;
-    public Author author;
+    private String literatureName;
+    public String author;
     private Genre genre;
     private boolean isAvailable;
-    private String type;
     private LiteratureType literatureType;
     private int bookPages;
 
 
-    public Literature(String name, Author author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
-        this.name = name;
+    public Literature(String name, String author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
+        this.literatureName = name;
         this.author = author;
         this.genre = genre;
         this.isAvailable = isAvailable;
@@ -28,9 +27,9 @@ public class Literature extends Entity {
 
     }
 
-    public Literature(int id, String name, Author author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
+    public Literature(int id, String name, String author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
         super(id);
-        this.name = name;
+        this.literatureName = name;
         this.author = author;
         this.genre = genre;
         this.isAvailable = isAvailable;
@@ -38,11 +37,11 @@ public class Literature extends Entity {
         this.literatureType = literatureType;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -78,12 +77,12 @@ public class Literature extends Entity {
         this.bookPages = bookPages;
     }
 
-    public String getName() {
-        return name;
+    public String getLiteratureName() {
+        return literatureName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLiteratureName(String literatureName) {
+        this.literatureName = literatureName;
     }
 
     @Override
@@ -92,18 +91,18 @@ public class Literature extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Literature that = (Literature) o;
-        return isAvailable() == that.isAvailable() && getBookPages() == that.getBookPages() && Objects.equals(getName(), that.getName()) && Objects.equals(getAuthor(), that.getAuthor()) && getGenre() == that.getGenre() && getLiteratureType() == that.getLiteratureType();
+        return isAvailable() == that.isAvailable() && getBookPages() == that.getBookPages() && Objects.equals(getLiteratureName(), that.getLiteratureName()) && Objects.equals(getAuthor(), that.getAuthor()) && getGenre() == that.getGenre() && getLiteratureType() == that.getLiteratureType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getName(), getAuthor(), getGenre(), isAvailable(), getLiteratureType(), getBookPages());
+        return Objects.hash(super.hashCode(), getLiteratureName(), getAuthor(), getGenre(), isAvailable(), getLiteratureType(), getBookPages());
     }
 
     @Override
     public String toString() {
         return "Literature{" +
-                "name='" + name + '\'' +
+                "name='" + literatureName + '\'' +
                 ", author=" + author +
                 ", genre=" + genre +
                 ", isAvailable=" + isAvailable +

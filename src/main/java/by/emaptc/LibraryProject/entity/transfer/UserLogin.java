@@ -5,11 +5,12 @@ import java.util.Objects;
 
 public class UserLogin implements Serializable {
     private int id;
-    private String role;
+    private String roleName;
+    private String status;
 
-    public UserLogin(int id, String role) {
+    public UserLogin(int id, String roleName) {
         this.id = id;
-        this.role = role;
+        this.roleName = roleName;
     }
 
     public UserLogin() {
@@ -24,12 +25,20 @@ public class UserLogin implements Serializable {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
@@ -37,11 +46,11 @@ public class UserLogin implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserLogin userLogin = (UserLogin) o;
-        return getId() == userLogin.getId() && Objects.equals(getRole(), userLogin.getRole());
+        return getId() == userLogin.getId() && Objects.equals(getRoleName(), userLogin.getRoleName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRole());
+        return Objects.hash(getId(), getRoleName());
     }
 }

@@ -1,8 +1,8 @@
 package by.emaptc.LibraryProject.controllers;
 
-import by.emaptc.LibraryProject.command.Command;
-import by.emaptc.LibraryProject.command.CommandFactory;
-import by.emaptc.LibraryProject.command.Page;
+import by.emaptc.LibraryProject.controllers.command.Command;
+import by.emaptc.LibraryProject.controllers.command.CommandFactory;
+import by.emaptc.LibraryProject.controllers.command.Page;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
 import by.emaptc.LibraryProject.pool.ConnectionPool;
 import org.apache.log4j.Logger;
@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "MainServlet" , value = "/servlet")
+@WebServlet(name = "MainServlet" , value = "/controller")
 public class Controller extends HttpServlet {
    private final CommandFactory commandFactory = new CommandFactory();
     private static final Logger LOGGER = Logger.getLogger(Controller.class);

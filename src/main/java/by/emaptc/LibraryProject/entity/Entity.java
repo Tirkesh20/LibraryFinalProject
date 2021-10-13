@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Entity {
     private int id;
-    int a=1;
     protected Entity() {
         this.id = -1;
     }

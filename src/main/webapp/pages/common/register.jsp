@@ -23,6 +23,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/font-awesome.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
   <title>${pageScope.title}</title>
 </head>
@@ -53,15 +54,8 @@
              onkeyup="checkPassword();"/>
     </p>
     <p><span>${pageScope.email}</span>
-      <input id="email" title="${pageScope.email}" type="text" name="email" value="" placeholder="taxi@gmail.com"
+      <input id="email" title="${pageScope.email}" type="text" name="email" value="" placeholder="test@gmail.com"
              onkeyup="checkEmail();"/>
-    </p>
-    <p><span>${pageScope.role}</span>
-      <select title="${pageScope.role}" name="role" required>
-        <option>admin</option>
-        <option>client</option>
-        <option>taxi</option>
-      </select>
     </p>
     <input class="reg_submit" id="submit" type="submit" value="${pageScope.register_submit}" disabled/>
   </form>

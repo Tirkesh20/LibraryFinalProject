@@ -27,8 +27,8 @@
 <p class="error">${requestScope.message}</p>
 <div class="wrapper_form">
     <form name="loginForm" method="POST" action="${pageContext.request.contextPath}/controller">
-        <input type="hidden" name="command" value="common_login"/>
-        <p><label>${pageScope.enter_login}<input class="log_input" type="text" name="username" value=""/></label></p>
+        <input type="hidden" name="command" value="login"/>
+        <p><label>${pageScope.enter_login}<input class="log_input" type="text" name="login" value=""/></label></p>
         <p><label>${pageScope.enter_password}<input class="log_input" type="password" name="password" value=""/></label></p>
         <input class="log_button" type="submit" value="${pageScope.log_in}"/>
     </form>

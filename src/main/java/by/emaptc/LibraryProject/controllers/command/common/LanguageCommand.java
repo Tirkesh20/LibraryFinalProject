@@ -1,8 +1,7 @@
-package by.emaptc.LibraryProject.command.common;
+package by.emaptc.LibraryProject.controllers.command.common;
 
-import by.emaptc.LibraryProject.command.Command;
-import by.emaptc.LibraryProject.command.Page;
-import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.controllers.command.Command;
+import by.emaptc.LibraryProject.controllers.command.Page;
 import by.emaptc.LibraryProject.utils.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;

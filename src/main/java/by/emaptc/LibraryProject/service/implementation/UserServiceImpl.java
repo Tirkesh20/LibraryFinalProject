@@ -1,26 +1,29 @@
-package by.emaptc.LibraryProject.service;
+package by.emaptc.LibraryProject.service.implementation;
 
 import by.emaptc.LibraryProject.dao.implementation.UserDAOImpl;
 import by.emaptc.LibraryProject.entity.User;
+import by.emaptc.LibraryProject.entity.transfer.UserLogin;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.service.UserService;
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
     private final UserDAOImpl userDAO = new UserDAOImpl();
 
-    public User login(String login, String password) throws ServiceException {
+
+    public UserLogin login(String login, String password) throws ServiceException {
         try {
             userDAO.startTransaction();
-            User user = userDAO.login(login, password);
+            UserLogin user = userDAO.login(login, password);
             if (user == null) {
                 return null;
             }
             user.setStatus("active");
-            boolean isAdmin = "admin".equals(user.getRole());
-            if (isAdmin) {
-                userDAO.updateStatus(user);
-                return user;
-            }
+//            boolean isAdmin = "admin".equals(user.getRoleName());
+//            if (isAdmin) {
+//                userDAO.updateStatus(user.getId(),user.getStatus());
+//                return user;
+//            }
             return user;
         } catch (DAOException e) {
             userDAO.rollbackTransaction();
@@ -30,13 +33,13 @@ public class UserServiceImpl {
         }
     }
 
-    public void logout(User user) throws ServiceException {
+    public void logout(UserLogin user) throws ServiceException {
         try {
             userDAO.startTransaction();
             user.setStatus("not active");
-            boolean isAdmin = "admin".equals(user.getRole());
+            boolean isAdmin = "ADMIN".equals(user.getRoleName().toString());
             if (isAdmin) {
-                userDAO.updateStatus(user);
+                userDAO.updateStatus(user.getId(),user.getStatus());
             }
         } catch (DAOException e) {
             userDAO.rollbackTransaction();

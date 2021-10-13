@@ -3,6 +3,6 @@
 <html>
 <head><title>Index</title></head>
 <body>
-<jsp:forward page="/pages/common/main.jsp"/>
+<jsp:forward page="/pages/common/login.jsp"/>
 </body>
 </html>

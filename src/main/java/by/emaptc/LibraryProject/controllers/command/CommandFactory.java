@@ -1,6 +1,6 @@
-package by.emaptc.LibraryProject.command;
+package by.emaptc.LibraryProject.controllers.command;
 
-import by.emaptc.LibraryProject.command.common.HomePageCommand;
+import by.emaptc.LibraryProject.controllers.command.common.HomePageCommand;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

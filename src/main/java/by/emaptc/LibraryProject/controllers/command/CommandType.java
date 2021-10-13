@@ -1,12 +1,12 @@
-package by.emaptc.LibraryProject.command;
+package by.emaptc.LibraryProject.controllers.command;
 
-import by.emaptc.LibraryProject.command.adminCommand.ChangeBehaviorCommand;
-import by.emaptc.LibraryProject.command.adminCommand.DeleteUserCommand;
-import by.emaptc.LibraryProject.command.adminCommand.ShowUserCommand;
-import by.emaptc.LibraryProject.command.authCommand.LogOutCommand;
-import by.emaptc.LibraryProject.command.authCommand.LoginCommand;
-import by.emaptc.LibraryProject.command.authCommand.RegisterCommand;
-import by.emaptc.LibraryProject.command.common.LanguageCommand;
+import by.emaptc.LibraryProject.controllers.command.adminCommand.ChangeBehaviorCommand;
+import by.emaptc.LibraryProject.controllers.command.adminCommand.DeleteUserCommand;
+import by.emaptc.LibraryProject.controllers.command.adminCommand.ShowUserCommand;
+import by.emaptc.LibraryProject.controllers.command.authCommand.LogOutCommand;
+import by.emaptc.LibraryProject.controllers.command.authCommand.LoginCommand;
+import by.emaptc.LibraryProject.controllers.command.authCommand.RegisterCommand;
+import by.emaptc.LibraryProject.controllers.command.common.LanguageCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,16 +26,16 @@ public enum CommandType {
 //    /**
 //     * Common commands.
 //     */
-      COMMON_LOGIN(new LoginCommand()),
-      COMMON_LOGOUT(new LogOutCommand()),
+      LOGIN(new LoginCommand()),
+      LOGOUT(new LogOutCommand()),
       COMMON_REGISTER(new RegisterCommand()),
-      COMMON_CHANGE_LANGUAGE(new LanguageCommand()),
+      COMMON_CHANGE_LANGUAGE(new LanguageCommand());
 
     /**
      * Client Command
      */
-    BOOK_ORDER(new OrderCommand()),
-    CANCEL_ORDER(new ClientCancelOrderCommand());
+//    BOOK_ORDER(new OrderCommand()),
+//    CANCEL_ORDER(new ClientCancelOrderCommand());
 
 
     private final Command command;

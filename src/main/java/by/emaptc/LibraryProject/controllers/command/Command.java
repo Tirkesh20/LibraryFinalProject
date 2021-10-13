@@ -1,4 +1,4 @@
-package by.emaptc.LibraryProject.command;
+package by.emaptc.LibraryProject.controllers.command;
 
 import by.emaptc.LibraryProject.exceptions.ServiceException;
 

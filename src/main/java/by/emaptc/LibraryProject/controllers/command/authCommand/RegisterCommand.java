@@ -1,11 +1,11 @@
-package by.emaptc.LibraryProject.command.authCommand;
+package by.emaptc.LibraryProject.controllers.command.authCommand;
 
-import by.emaptc.LibraryProject.command.Command;
-import by.emaptc.LibraryProject.command.Page;
+import by.emaptc.LibraryProject.controllers.command.Command;
+import by.emaptc.LibraryProject.controllers.command.Page;
 import by.emaptc.LibraryProject.entity.User;
 import by.emaptc.LibraryProject.entity.enums.Role;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
-import by.emaptc.LibraryProject.service.UserServiceImpl;
+import by.emaptc.LibraryProject.service.implementation.UserServiceImpl;
 import by.emaptc.LibraryProject.utils.PasswordEncoder;
 import by.emaptc.LibraryProject.utils.UserDataValidator;
 
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Locale;
 
-import static by.emaptc.LibraryProject.command.Page.LOGIN_PAGE_PATH;
-import static by.emaptc.LibraryProject.command.Page.REGISTER_PAGE_PATH;
+import static by.emaptc.LibraryProject.controllers.command.Page.LOGIN_PAGE_PATH;
+import static by.emaptc.LibraryProject.controllers.command.Page.REGISTER_PAGE_PATH;
 import static by.emaptc.LibraryProject.utils.MessageManager.SUCCESS_MESSAGE_KEY;
 import static by.emaptc.LibraryProject.utils.MessageManager.UNSUCCESSFUL_MESSAGE_KEY;
 
@@ -49,7 +49,6 @@ public class RegisterCommand implements Command {
         String login = request.getParameter(LOGIN_PARAMETER);
         String password = request.getParameter(PASSWORD_PARAMETER);
         String email = request.getParameter("email");
-        String role = request.getParameter("role");
         boolean isUserDataValid = isUserDataValid(firstName, lastName, login, password, email);
         if (!isUserDataValid) {
             return null;
@@ -59,7 +58,6 @@ public class RegisterCommand implements Command {
         user.setUsername(login);
         user.setPassword(PasswordEncoder.encode(password));
         user.setEmail(email);
-        user.setRole(Role.valueOf(role.toUpperCase(Locale.ROOT)));
         user.setStatus("not active");
         return user;
     }
