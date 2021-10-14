@@ -1,4 +1,4 @@
-package by.emaptc.LibraryProject.pool;
+package by.emaptc.LibraryProject.dao.pool;
 
 import org.apache.log4j.Logger;
 

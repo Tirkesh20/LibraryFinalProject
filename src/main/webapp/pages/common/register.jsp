@@ -24,7 +24,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/font-awesome.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/auth.css">
   <title>${pageScope.title}</title>
 </head>
 <body class="page">
@@ -57,7 +57,7 @@
       <input id="email" title="${pageScope.email}" type="text" name="email" value="" placeholder="test@gmail.com"
              onkeyup="checkEmail();"/>
     </p>
-    <input class="reg_submit" id="submit" type="submit" value="${pageScope.register_submit}" disabled/>
+    <input class="reg_submit" id="reg_submit" type="submit" value="${pageScope.register_submit}" disabled/>
   </form>
 </div>
 <script>

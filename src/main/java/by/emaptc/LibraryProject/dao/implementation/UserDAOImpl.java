@@ -18,27 +18,22 @@ public class UserDAOImpl extends AbstractDAO<User> {
    private PreparedStatement preparedStatement = null;
    private ResultSet resultSet = null;
 
-    final String LOGIN_QUERY="SELECT users.id,roles.usertype from users"+
+    final String LOGIN_QUERY="SELECT users.id,user.name,user.lastname,user.email,user.username,user.password,user.status,roles.usertype from users"+
         " inner join roles on users.role_id = roles.id where" +
         "(username=? AND password=?)";
 
-    public UserLogin login(String login, String password) throws DAOException{
+    public User login(String login, String password) throws DAOException{
         List<String> params = Arrays.asList(login, password);
         return login(LOGIN_QUERY, params);
     }
 
-    protected UserLogin login (String sqlQuery, List < String > params) throws DAOException {
+    protected User login (String sqlQuery, List < String > params) throws DAOException {
             try {
                 connection = getConnection();
                 preparedStatement = connection.prepareStatement(sqlQuery);
                 buildStatement(params, preparedStatement);
                 resultSet = preparedStatement.executeQuery();
-                UserLogin user = new UserLogin();
-                if (resultSet.next()) {
-                    user.setId(resultSet.getInt(ID_COLUMN_LABEL));
-                    user.setRoleName((resultSet.getString("usertype")));
-                    return user;
-                }
+                buildEntity(resultSet);
             } catch (SQLException e) {
                 throw new DAOException(e.getMessage(), e);
             }finally {
@@ -86,9 +81,8 @@ public class UserDAOImpl extends AbstractDAO<User> {
         String username = entity.getUsername();
         String password = entity.getPassword();
         String email = entity.getEmail();
-        String role = entity.getRole().toString();
         String status = entity.getStatus();
-        return Arrays.asList(firstName, lastName, username, password, email,role, status);
+        return Arrays.asList(firstName, lastName, username, password, email, status);
     }
 
 }

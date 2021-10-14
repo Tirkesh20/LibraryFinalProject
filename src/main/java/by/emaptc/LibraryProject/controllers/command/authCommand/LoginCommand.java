@@ -2,7 +2,7 @@ package by.emaptc.LibraryProject.controllers.command.authCommand;
 
 import by.emaptc.LibraryProject.controllers.command.Command;
 import by.emaptc.LibraryProject.controllers.command.Page;
-import by.emaptc.LibraryProject.entity.transfer.UserLogin;
+import by.emaptc.LibraryProject.entity.User;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
 import by.emaptc.LibraryProject.service.implementation.UserServiceImpl;
 
@@ -20,7 +20,7 @@ public class LoginCommand implements Command {
 
         String login = request.getParameter(LOGIN_PARAMETER);
         String password = (request.getParameter(PASSWORD_PARAMETER));
-        UserLogin user = userService.login(login, password);
+        User user = userService.login(login, password);
         if (user == null) {
             return new Page(Page.LOGIN_PAGE_PATH, false, LOGIN_ERROR_MESSAGE_KEY);
         }

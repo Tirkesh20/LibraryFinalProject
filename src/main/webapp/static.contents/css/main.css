@@ -24,8 +24,11 @@ li a:hover:not(.active) {
     background-color: #111;
 }
 
-body{
-    /*background-image: url("");*/
+.page {
+    margin: 0;
+    padding: 0;
+    background: url("../images/backgroung.jpg") no-repeat center center fixed;
     background-size: cover;
-
+    color: white;
+    font-family: 'Caviar', serif;
 }

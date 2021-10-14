@@ -1,9 +1,7 @@
 package by.emaptc.LibraryProject.dao.implementation;
 
 import by.emaptc.LibraryProject.dao.AbstractDAO;
-import by.emaptc.LibraryProject.entity.Literature;
 import by.emaptc.LibraryProject.entity.LiteratureManagement;
-import by.emaptc.LibraryProject.entity.enums.Genre;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 
 import java.util.Collections;
@@ -12,7 +10,7 @@ import java.util.List;
 public class LiteratureManagementDAO  extends AbstractDAO<LiteratureManagement>{
 
     public int insertLiterature(LiteratureManagement management) throws DAOException {
-        String fields = "insert into literatures (name, lastname ,username, password, email, status) values(?,?,?,?,?,?)";
+        String fields = "insert into literature_managements ( user_id ,issue_status, date_of_give, date_to_return, literature_id) values(?,?,?,?,?)";
         return insert(management, fields);
     }
 

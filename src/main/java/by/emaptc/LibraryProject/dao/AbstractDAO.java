@@ -1,8 +1,7 @@
 package by.emaptc.LibraryProject.dao;
 
-import by.emaptc.LibraryProject.entity.transfer.UserLogin;
 import by.emaptc.LibraryProject.exceptions.DAOException;
-import by.emaptc.LibraryProject.pool.ConnectionManager;
+import by.emaptc.LibraryProject.dao.pool.ConnectionManager;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -37,7 +36,8 @@ public class AbstractDAO<T> {
         return null;
     }
 
-    protected T buildEntity(ResultSet result) throws DAOException {
+    protected T
+    buildEntity(ResultSet result) throws DAOException {
         return null;
     }
 

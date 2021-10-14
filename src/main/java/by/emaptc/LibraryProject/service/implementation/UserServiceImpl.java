@@ -11,10 +11,10 @@ public class UserServiceImpl implements UserService {
     private final UserDAOImpl userDAO = new UserDAOImpl();
 
 
-    public UserLogin login(String login, String password) throws ServiceException {
+    public User login(String login, String password) throws ServiceException {
         try {
             userDAO.startTransaction();
-            UserLogin user = userDAO.login(login, password);
+            User user = userDAO.login(login, password);
             if (user == null) {
                 return null;
             }
@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
     public void registerUser(User user) throws ServiceException {
         try {
+            userDAO.startTransaction();
             userDAO.insertUser(user);
         } catch (DAOException e) {
             throw new ServiceException("Exception during user register operation user = [" + user.toString() + "]", e);

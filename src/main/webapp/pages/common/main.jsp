@@ -16,7 +16,7 @@
 <ul>
     <c:if test="${(sessionScope.user.roleName == 'user')}">
         <li><a class="active" href="main.jsp">Home</a></li>
-        <li><a href="newOrder.jsp">Issue a literature</a></li>
+        <li><a href="../userPages/issue_a_book.jsp">Issue a literature</a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=clientOrder">My issues</a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=clientOrder">My books</a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>

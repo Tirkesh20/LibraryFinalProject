@@ -4,7 +4,7 @@ import by.emaptc.LibraryProject.controllers.command.Command;
 import by.emaptc.LibraryProject.controllers.command.CommandFactory;
 import by.emaptc.LibraryProject.controllers.command.Page;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
-import by.emaptc.LibraryProject.pool.ConnectionPool;
+import by.emaptc.LibraryProject.dao.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.io.*;

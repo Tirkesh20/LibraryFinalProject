@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Caviar';
+    src: url("../fonts/Caviar/CaviarDreams.ttf");
+}
+
+.page {
+    margin: 0;
+    padding: 0;
+    background: url("../images/backgroung.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: 'Caviar', serif;
+}
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    font-weight: 100;
+}
+
+.title a {
+    color: white;
+    font-size: 40px;
+}
+
+.title a:hover {
+    color: #a32ea3;
+}
+
+.wrapper_form {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(120, 120, 120, 0.7);
+    text-align: center;
+    padding-top: 30px;
+    box-sizing: border-box;
+    margin: 0 auto 20px;
+}
+
+
+.log_input {
+    display: block;
+    border: 1px solid #000;
+    width: 250px;
+    margin: 0 auto;
+    padding: 10px 0 10px 0;
+}
+
+.log_accept{
+    display: block;
+    width: 50px;
+    height: 20px;
+    margin: 20px auto 0;
+    background-color: #60f3f3;
+    cursor: pointer;
+    border: 2px solid #60f3f3;
+    font-weight: bold;
+    color: #a32ea3;
+    font-family: 'Caviar', serif;
+}
+
+.log_button {
+    display: block;
+    width: 250px;
+    margin: 30px auto 0;
+    background-color: #60f3f3;
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+    border: 2px solid #60f3f3;
+    font-weight: bold;
+    color: #a32ea3;
+    font-family: 'Caviar', serif;
+}
+
+.log_button:hover {
+    background-color: #4e9690;
+}
+
+.reg_link {
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: rgba(120, 120, 120, 0.7);
+    text-align: center;
+    padding-top: 15px;
+    box-sizing: border-box;
+}
+
+.reg_link .reg_button {
+    color: #a32ea3;
+    text-decoration: none;
+}
+
+.reg_link .reg_button:hover {
+    text-decoration: underline;
+}
+
+.reg_form {
+    background-color: rgba(120, 120, 120, 0.7);
+    width: 250px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.reg_form input {
+    padding: 3px 0 3px 0;
+    border: none;
+    width: 100%;
+}
+
+.valid {
+    background-color: rgb(138, 219, 219);
+}
+
+.notValid {
+    background-color: #eca9bb;
+}
+
+.reg_form span {
+    display: block;
+    text-align: center;
+}
+
+.reg_form .reg_submit {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    color: #a32ea3;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.reg_form .active:hover {
+    background-color: rgb(138, 219, 219);
+    cursor: pointer;
+    color: #fff;
+}
+
+.error_wrapper {
+    background-color: rgba(240, 23, 192, 0.44);
+    font-size: 35px;
+    font-style: oblique;
+    width: 70%;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.error {
+    display: block;
+    text-align: center;
+    background-color: rgba(240, 23, 192, 0.44);
+    width: 30%;
+    margin: 0 auto 1%;
+}

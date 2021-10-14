@@ -1,4 +1,4 @@
-package by.emaptc.LibraryProject.pool;
+package by.emaptc.LibraryProject.dao.pool;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import by.emaptc.LibraryProject.entity.Entity;
 import org.apache.log4j.Logger;
 
 public class ConnectionCreator  {
