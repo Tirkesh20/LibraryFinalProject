@@ -2,7 +2,6 @@ package by.emaptc.LibraryProject.service.implementation;
 
 import by.emaptc.LibraryProject.dao.implementation.UserDAOImpl;
 import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.entity.transfer.UserLogin;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
 import by.emaptc.LibraryProject.service.UserService;
@@ -19,11 +18,7 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
             user.setStatus("active");
-//            boolean isAdmin = "admin".equals(user.getRoleName());
-//            if (isAdmin) {
-//                userDAO.updateStatus(user.getId(),user.getStatus());
-//                return user;
-//            }
+            userDAO.updateStatus(user.getId(),user.getStatus());
             return user;
         } catch (DAOException e) {
             userDAO.rollbackTransaction();
@@ -33,14 +28,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void logout(UserLogin user) throws ServiceException {
+    public void logout(User user) throws ServiceException {
         try {
             userDAO.startTransaction();
             user.setStatus("not active");
-            boolean isAdmin = "ADMIN".equals(user.getRoleName().toString());
-            if (isAdmin) {
-                userDAO.updateStatus(user.getId(),user.getStatus());
-            }
+            userDAO.updateStatus(user.getId(),user.getStatus());
         } catch (DAOException e) {
             userDAO.rollbackTransaction();
             throw new ServiceException("Exception during logout operation login =[" + user + "]", e);

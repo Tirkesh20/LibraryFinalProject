@@ -14,9 +14,10 @@ import java.util.List;
 
 public class LiteratureDAO extends AbstractDAO<Literature> {
 
-    private String SQL_DELETE_QUERY="DELETE  from literatures where id=?";
+    private final String SQL_DELETE_QUERY="DELETE  from literatures where id=?";
     private String SQL_READ_BY_ID_QUERY="Select * from literatures where id=?";
     private String SQL_READ_ALL_QUERY="Select * from literatures where genre=?";
+
     public int insertLiterature(Literature user) throws DAOException {
         String fields = "insert into literatures (name, lastname ,username, password, email, status) values(?,?,?,?,?,?)";
         return insert(user, fields);
@@ -54,26 +55,16 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
     }
 
     @Override
-    protected Literature buildEntity(ResultSet result) throws DAOException {
-        try {
-            try {
-                Literature literature = new Literature();
-                if (result.next()) {
-                    literature.setId(result.getInt(ID_COLUMN_LABEL));
-                    literature.setLiteratureName((result.getString("name")));
-                    literature.setGenre(Genre.valueOf(result.getString("genre")));
-                    literature.setAuthor(result.getString("author"));
-                    literature.setLiteratureType(LiteratureType.valueOf(result.getString("type")));
-                    literature.setAvailable(Boolean.parseBoolean(result.getString("isAvailable")));
-                    literature.setBookPages(result.getInt("pages"));
-                    return literature;
-                }
-            } catch (SQLException e) {
-                throw new DAOException(e.getMessage(), e);
-            }
-        } finally {
-            closeConnection(connection,preparedStatement,resultSet);
-        }
-        return null;
+    public Literature buildEntity(ResultSet result) throws SQLException {
+        Literature literature = new Literature();
+        literature.setId(result.getInt(ID_COLUMN_LABEL));
+        literature.setLiteratureName((result.getString("name")));
+        literature.setGenre(Genre.valueOf(result.getString("genre")));
+        literature.setAuthor(result.getString("author"));
+        literature.setLiteratureType(LiteratureType.valueOf(result.getString("type")));
+        literature.setAvailable(Boolean.parseBoolean(result.getString("isAvailable")));
+        literature.setBookPages(result.getInt("pages"));
+        return literature;
     }
+
 }

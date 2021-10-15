@@ -2,7 +2,7 @@ package by.emaptc.LibraryProject.dao.implementation;
 
 import by.emaptc.LibraryProject.dao.AbstractDAO;
 import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.entity.transfer.UserLogin;
+import by.emaptc.LibraryProject.entity.enums.Role;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 
 import java.sql.Connection;
@@ -18,19 +18,18 @@ public class UserDAOImpl extends AbstractDAO<User> {
    private PreparedStatement preparedStatement = null;
    private ResultSet resultSet = null;
 
-    final String LOGIN_QUERY="SELECT users.id,user.name,user.lastname,user.email,user.username,user.password,user.status,roles.usertype from users"+
-        " inner join roles on users.role_id = roles.id where" +
-        "(username=? AND password=?)";
+    private String LOGIN_QUERY="SELECT users.id,users.name,users.lastname," +
+                                            "users.email,users.username,users.password,users.status," +
+                                                "roles.usertype from users"+
+                                                  " inner join roles on users.role_id = roles.id where" +
+                                                      "(username=? AND password=?)";
 
-    public User login(String login, String password) throws DAOException{
+
+    public User login(String login, String password) throws DAOException {
         List<String> params = Arrays.asList(login, password);
-        return login(LOGIN_QUERY, params);
-    }
-
-    protected User login (String sqlQuery, List < String > params) throws DAOException {
             try {
                 connection = getConnection();
-                preparedStatement = connection.prepareStatement(sqlQuery);
+                preparedStatement = connection.prepareStatement(LOGIN_QUERY);
                 buildStatement(params, preparedStatement);
                 resultSet = preparedStatement.executeQuery();
                 buildEntity(resultSet);
@@ -41,6 +40,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
         }
         return null;
     }
+
 
     public void updateStatus(int userID, String status) throws DAOException {
         String sqlQuery = "UPDATE users SET status=? WHERE id=?";
@@ -83,6 +83,19 @@ public class UserDAOImpl extends AbstractDAO<User> {
         String email = entity.getEmail();
         String status = entity.getStatus();
         return Arrays.asList(firstName, lastName, username, password, email, status);
+    }
+
+    @Override
+    public User buildEntity(ResultSet resultSet)throws SQLException{
+        User user = new User();
+        user.setId(resultSet.getInt("id"));
+        user.setName(resultSet.getString("first_name"));
+        user.setLastName(resultSet.getString("last_name"));
+        user.setUsername(resultSet.getString("username"));
+        user.setPassword(resultSet.getString("password"));
+        user.setEmail(resultSet.getString("email"));
+        user.setRole(Role.valueOf(resultSet.getString("user_type")));
+        return user;
     }
 
 }

@@ -36,8 +36,7 @@ public class AbstractDAO<T> {
         return null;
     }
 
-    protected T
-    buildEntity(ResultSet result) throws DAOException {
+    protected T buildEntity(ResultSet result) throws SQLException {
         return null;
     }
 
@@ -95,7 +94,7 @@ public class AbstractDAO<T> {
                 preparedStatement = connection.prepareStatement(sqlQuery);
                  buildStatement(params,preparedStatement);
                 resultSet = preparedStatement.executeQuery();
-                return (resultSet.next() ? buildEntity(resultSet) : null);
+                return resultSet.next() ? buildEntity(resultSet) : null;
             } catch (SQLException e) {
                 throw new DAOException(e.getMessage(), e);
             }finally {
@@ -120,7 +119,6 @@ public class AbstractDAO<T> {
         }
         return list;
     }
-
 
 
         protected Connection getConnection () {
