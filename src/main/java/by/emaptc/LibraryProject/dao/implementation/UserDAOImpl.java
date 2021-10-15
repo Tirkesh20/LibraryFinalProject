@@ -89,12 +89,12 @@ public class UserDAOImpl extends AbstractDAO<User> {
     public User buildEntity(ResultSet resultSet)throws SQLException{
         User user = new User();
         user.setId(resultSet.getInt("id"));
-        user.setName(resultSet.getString("first_name"));
-        user.setLastName(resultSet.getString("last_name"));
+        user.setName(resultSet.getString("name"));
+        user.setLastName(resultSet.getString("lastname"));
         user.setUsername(resultSet.getString("username"));
         user.setPassword(resultSet.getString("password"));
         user.setEmail(resultSet.getString("email"));
-        user.setRole(Role.valueOf(resultSet.getString("user_type")));
+        user.setRole(Role.valueOf(resultSet.getString("usertype")));
         return user;
     }
 
