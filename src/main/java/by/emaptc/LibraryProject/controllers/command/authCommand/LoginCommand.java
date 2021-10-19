@@ -4,6 +4,7 @@ import by.emaptc.LibraryProject.controllers.command.Command;
 import by.emaptc.LibraryProject.controllers.command.Page;
 import by.emaptc.LibraryProject.entity.User;
 import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 import by.emaptc.LibraryProject.service.implementation.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,8 @@ public class LoginCommand implements Command {
 
     @Override
     public Page execute(HttpServletRequest request) throws ServiceException {
-        UserServiceImpl userService = new UserServiceImpl();
+        UserServiceImpl userService= ServiceProvider.getInstance().getUserService();
         HttpSession currentSession = request.getSession();
-
         String login = request.getParameter(LOGIN_PARAMETER);
         String password = (request.getParameter(PASSWORD_PARAMETER));
         User user = userService.login(login, password);

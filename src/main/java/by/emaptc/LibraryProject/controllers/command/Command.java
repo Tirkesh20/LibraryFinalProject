@@ -15,10 +15,11 @@ String PASSWORD_PARAMETER = "password";
     /**
      * Attributes.
      */
-    String USER_ATTRIBUTE = "user";
+     String USER_ATTRIBUTE ="user" ;
     String MESSAGE_ATTRIBUTE = "message";
     String LIST_ATTRIBUTE ="list";
-
+    String MY_LITERATURES_URL="";
+    String USER_LITERATURES="user_literatures";
     Page execute(HttpServletRequest request)throws ServiceException;
 
     String LOGIN_PARAMETER = "login";

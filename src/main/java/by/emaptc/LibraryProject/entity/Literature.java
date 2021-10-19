@@ -12,30 +12,14 @@ public class Literature extends Entity {
     private boolean isAvailable;
     private LiteratureType literatureType;
     private int bookPages;
+    private String publisher;
 
 
-    public Literature(String name, String author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
-        this.literatureName = name;
-        this.author = author;
-        this.genre = genre;
-        this.isAvailable = isAvailable;
-        this.bookPages = bookPages;
-        this.literatureType = literatureType;
-    }
 
     public Literature(){
 
     }
 
-    public Literature(int id, String name, String author, Genre genre, boolean isAvailable, int bookPages, LiteratureType literatureType) {
-        super(id);
-        this.literatureName = name;
-        this.author = author;
-        this.genre = genre;
-        this.isAvailable = isAvailable;
-        this.bookPages = bookPages;
-        this.literatureType = literatureType;
-    }
 
     public String getAuthor() {
         return author;
@@ -83,6 +67,14 @@ public class Literature extends Entity {
 
     public void setLiteratureName(String literatureName) {
         this.literatureName = literatureName;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     @Override

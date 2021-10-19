@@ -3,13 +3,14 @@ package by.emaptc.LibraryProject.entity;
 import by.emaptc.LibraryProject.entity.enums.Status;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class LiteratureManagement extends Entity {
     private int user_id;
     private int literature_id;
-    private LocalDateTime dateOfGive;
-    private LocalDateTime dateToReturn;
+    private Date dateOfGive;
+    private Date dateToReturn;
     private Status status;
 
 
@@ -29,19 +30,19 @@ public class LiteratureManagement extends Entity {
         this.literature_id = literature_id;
     }
 
-    public LocalDateTime getDateOfGive() {
+    public Date getDateOfGive() {
         return dateOfGive;
     }
 
-    public void setDateOfGive(LocalDateTime dateOfGive) {
+    public void setDateOfGive(Date dateOfGive) {
         this.dateOfGive = dateOfGive;
     }
 
-    public LocalDateTime getDateToReturn() {
+    public Date getDateToReturn() {
         return dateToReturn;
     }
 
-    public void setDateToReturn(LocalDateTime dateToReturn) {
+    public void setDateToReturn(Date dateToReturn) {
         this.dateToReturn = dateToReturn;
     }
 

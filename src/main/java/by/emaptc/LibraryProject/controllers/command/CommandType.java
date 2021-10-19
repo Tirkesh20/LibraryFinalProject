@@ -7,6 +7,7 @@ import by.emaptc.LibraryProject.controllers.command.authCommand.LogOutCommand;
 import by.emaptc.LibraryProject.controllers.command.authCommand.LoginCommand;
 import by.emaptc.LibraryProject.controllers.command.authCommand.RegisterCommand;
 import by.emaptc.LibraryProject.controllers.command.common.LanguageCommand;
+import by.emaptc.LibraryProject.controllers.command.userCommand.IssueCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +30,13 @@ public enum CommandType {
       LOGIN(new LoginCommand()),
       LOGOUT(new LogOutCommand()),
       COMMON_REGISTER(new RegisterCommand()),
-      COMMON_CHANGE_LANGUAGE(new LanguageCommand());
+      COMMON_CHANGE_LANGUAGE(new LanguageCommand()),
 
     /**
      * Client Command
      */
-//    BOOK_ORDER(new OrderCommand()),
-//    CANCEL_ORDER(new ClientCancelOrderCommand());
-
+    COMMON_ISSUE(new IssueCommand()),
+    COMMON_RETURN_ISSUE(new IssueCommand());
 
     private final Command command;
 

@@ -36,71 +36,109 @@ public class AbstractDAO<T> {
         return null;
     }
 
-    protected T buildEntity(ResultSet result) throws SQLException {
+    protected T buildEntity(ResultSet result) throws DAOException {
         return null;
     }
 
 
-    protected int executeQuery(String sqlQuery, List<String> parameters) throws DAOException {
+    protected void executeQuery(String sqlQuery, List<String> parameters) throws DAOException {
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            buildStatement(parameters,preparedStatement);
+            preparedStatement.executeUpdate();
+        }catch (SQLException exception) {
+            throw new DAOException(exception.getMessage(), exception);
+        }finally {
+            closeConnection(connection,preparedStatement,resultSet);
+        }
+    }
+
+    protected int insertExecuteQuery(String sqlQuery, List<String> parameters) throws DAOException {
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(sqlQuery,Statement.RETURN_GENERATED_KEYS);
             buildStatement(parameters,preparedStatement);
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
-                {
-                    if (resultSet.next()) {
-                        return resultSet.getInt(1);
-                    } else {
-                        throw new DAOException("no generated keys found");
-                    }
+            {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    throw new DAOException("no generated keys found");
                 }
-            }catch (SQLException exception) {
-                throw new DAOException(exception.getMessage(), exception);
-            }finally {
-               closeConnection(connection,preparedStatement,resultSet);
             }
+        }catch (SQLException exception) {
+            throw new DAOException(exception.getMessage(), exception);
+        }finally {
+            closeConnection(connection,preparedStatement,resultSet);
+        }
     }
 
-    protected void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet keys) throws DAOException {
+    protected void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) throws DAOException {
         try {
-            keys.close();
+            if (resultSet!=null){
+                resultSet.close();
+            }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage());
         }
         closeConnection(connection,preparedStatement);
     }
-
-    private void closeConnection(Connection connection, PreparedStatement preparedStatement) throws DAOException {
+    protected void closeConnection(Connection connection, Statement statement, ResultSet resultSet) throws DAOException {
         try {
-            preparedStatement.close();
+            if (resultSet!=null){
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        }
+        closeConnection(connection,statement);
+    }
+
+    protected void closeConnection(Connection connection, PreparedStatement preparedStatement) throws DAOException {
+        try {
+            if (preparedStatement!=null){
+                preparedStatement.close();
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
+        }
+        closeConnection(connection);
+    }
+    protected void closeConnection(Connection connection, Statement statement) throws DAOException {
+        try {
+            if (statement!=null){
+                statement.close();
+            }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage());
         }
         closeConnection(connection);
     }
 
-    private void closeConnection(Connection connection) throws DAOException {
-        try {
+    protected void closeConnection(Connection connection) throws DAOException {
+        try {if (connection!=null){
             connection.close();
+        }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage());
         }
     }
 
     protected T getEntity (String sqlQuery, List < String > params) throws DAOException {
-            try {
-                connection = getConnection();
-                preparedStatement = connection.prepareStatement(sqlQuery);
-                 buildStatement(params,preparedStatement);
-                resultSet = preparedStatement.executeQuery();
-                return resultSet.next() ? buildEntity(resultSet) : null;
-            } catch (SQLException e) {
-                throw new DAOException(e.getMessage(), e);
-            }finally {
-                closeConnection(connection,preparedStatement,resultSet);
-            }
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            buildStatement(params,preparedStatement);
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next() ? buildEntity(resultSet) : null;
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e);
+        }finally {
+            closeConnection(connection,preparedStatement,resultSet);
         }
+    }
 
     protected List<T> getEntities (String sqlQuery, List < String > params) throws DAOException {
         List <T> list=new LinkedList<>();
@@ -121,32 +159,32 @@ public class AbstractDAO<T> {
     }
 
 
-        protected Connection getConnection () {
-            ConnectionManager cm = threadLocal.get();
-            if (cm != null) {
-                return cm.getConnection();
-            }
-            startTransaction();
-            return threadLocal.get().getConnection();
+    protected Connection getConnection () {
+        ConnectionManager cm = threadLocal.get();
+        if (cm != null) {
+            return cm.getConnection();
         }
+        startTransaction();
+        return threadLocal.get().getConnection();
+    }
 
 
-        protected int insert (T entity, String sqlQuery) throws DAOException {
-            List<String> params = getEntityParameters(entity);
-            return executeQuery(sqlQuery, params);
-        }
+    protected int insert (T entity, String sqlQuery) throws DAOException {
+        List<String> params = getEntityParameters(entity);
+        return insertExecuteQuery(sqlQuery, params);
+    }
 
 
-        public void buildStatement ( List < String > parameters, PreparedStatement preparedStatement) throws DAOException {
-            try {
-                if (parameters != null) {
-                    int parameterIndex = 1;
-                    for (String parameter : parameters) {
-                        preparedStatement.setObject(parameterIndex++, parameter);
-                    }
+    public void buildStatement ( List < String > parameters, PreparedStatement preparedStatement) throws DAOException {
+        try {
+            if (parameters != null) {
+                int parameterIndex = 1;
+                for (String parameter : parameters) {
+                    preparedStatement.setObject(parameterIndex++, parameter);
                 }
-            } catch (SQLException e) {
-                throw new DAOException(e.getMessage());
             }
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage());
         }
+    }
 }

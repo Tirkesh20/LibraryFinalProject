@@ -5,8 +5,8 @@ import by.emaptc.LibraryProject.exceptions.ServiceException;
 
 public interface UserService {
 
-public void registerUser(User user)throws ServiceException;
+ int registerUser(User user)throws ServiceException;
 
-public User login(String username,String password)throws ServiceException;
+ User login(String username,String password)throws ServiceException;
 
 }

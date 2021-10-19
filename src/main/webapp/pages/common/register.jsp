@@ -24,7 +24,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/font-awesome.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/auth.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
   <title>${pageScope.title}</title>
 </head>
 <body class="page">

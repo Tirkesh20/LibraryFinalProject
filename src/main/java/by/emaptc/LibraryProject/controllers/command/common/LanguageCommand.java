@@ -14,7 +14,6 @@ import static by.emaptc.LibraryProject.utils.MessageManager.DEFAULT_LOCALE;
 public class LanguageCommand implements Command {
     @Override
     public Page execute(HttpServletRequest request) {
-
         String localeValue = request.getParameter("locale");
         Locale locale = switch (localeValue) {
             case "ru" -> new Locale("ru", "RU");

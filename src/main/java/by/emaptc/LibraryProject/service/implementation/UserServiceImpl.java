@@ -1,5 +1,6 @@
 package by.emaptc.LibraryProject.service.implementation;
 
+import by.emaptc.LibraryProject.dao.implementation.DaoProvider;
 import by.emaptc.LibraryProject.dao.implementation.UserDAOImpl;
 import by.emaptc.LibraryProject.entity.User;
 import by.emaptc.LibraryProject.exceptions.DAOException;
@@ -7,7 +8,7 @@ import by.emaptc.LibraryProject.exceptions.ServiceException;
 import by.emaptc.LibraryProject.service.UserService;
 
 public class UserServiceImpl implements UserService {
-    private final UserDAOImpl userDAO = new UserDAOImpl();
+    private final UserDAOImpl userDAO = DaoProvider.getInstance().getUserDAO();
 
 
     public User login(String login, String password) throws ServiceException {
@@ -18,7 +19,6 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
             user.setStatus("active");
-            userDAO.updateStatus(user.getId(),user.getStatus());
             return user;
         } catch (DAOException e) {
             userDAO.rollbackTransaction();
@@ -62,10 +62,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void registerUser(User user) throws ServiceException {
+    public int registerUser(User user) throws ServiceException {
         try {
             userDAO.startTransaction();
-            userDAO.insertUser(user);
+          return   userDAO.insertUser(user);
         } catch (DAOException e) {
             throw new ServiceException("Exception during user register operation user = [" + user.toString() + "]", e);
         } finally {
