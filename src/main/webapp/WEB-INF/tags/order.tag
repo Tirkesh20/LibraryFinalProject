@@ -9,7 +9,7 @@
 <fmt:bundle basename="page_content">
     <fmt:message key="client.lets_go" var="letsGo"/>
     <fmt:message key="client.reach" var="reach"/>
-    <fmt:message key="client.order_button" var="send"/>
+    <fmt:message key="client.issue_button" var="send"/>
     <fmt:message key="client.message" var="message"/>
 </fmt:bundle>
 

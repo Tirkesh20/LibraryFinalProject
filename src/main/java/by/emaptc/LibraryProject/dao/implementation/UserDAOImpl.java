@@ -23,6 +23,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
             "roles.usertype from users"+
             " inner join roles on users.role_id = roles.id where" +
             "(username=? AND password=?)";
+    private  String SQL_INSERT="INSERT INTO users (name, lastname ,username, password, email, status) VALUES(?,?,?,?,?,?)";
 
 
     public User login(String login, String password) throws DAOException {
@@ -65,8 +66,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
 
 
     public int insertUser(User user) throws DAOException {
-        String fields = "insert into users (name, lastname ,username, password, email, status) values(?,?,?,?,?,?)";
-        return insert(user, fields);
+        return insertExecuteQuery(SQL_INSERT, user);
     }
 
 
@@ -104,4 +104,13 @@ public class UserDAOImpl extends AbstractDAO<User> {
 
         }}
 
+    @Override
+    protected void fetchSet(PreparedStatement stmt, User entity) throws SQLException {
+        stmt.setString(1,entity.getName());
+        stmt.setString(2,entity.getLastName());
+        stmt.setString(3,entity.getEmail());
+        stmt.setString(4,entity.getUsername());
+        stmt.setString(5,entity.getPassword());
+        stmt.setString(6,entity.getStatus());
+    }
 }

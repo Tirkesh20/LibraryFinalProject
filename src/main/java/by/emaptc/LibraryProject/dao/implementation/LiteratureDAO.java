@@ -6,14 +6,8 @@ import by.emaptc.LibraryProject.entity.enums.Genre;
 import by.emaptc.LibraryProject.entity.enums.LiteratureType;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
 public class LiteratureDAO extends AbstractDAO<Literature> {
 
@@ -21,17 +15,17 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
     private final String SQL_DELETE_QUERY="DELETE  FROM literatures where id=?";
     private String SQL_READ_BY_ID_QUERY="SELECT FROM literatures where id=?";
     private String SQL_READ_ALL_QUERY="SELECT * FROM literatures";
-    private final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT *FROM literature_managements WHERE user_id=?"+"INNER JOIN literatures ON literature_managements.literature_id=literatures.id";
+    private String SQL_INSERT="INSERT INTO literatures (name, lastname ,username, password, email, status,publisher) VALUES(?,?,?,?,?,?,?)";
+    private final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT * FROM literature_managements "+"INNER JOIN literatures ON literature_managements.literature_id=literatures.id "+"WHERE user_id=?";
 
-    public int insertLiterature(Literature user) throws DAOException {
-        String fields = "insert into literatures (name, lastname ,username, password, email, status,publisher) values(?,?,?,?,?,?,?)";
-        return insert(user, fields);
+
+    public int insertLiterature(Literature literature) throws DAOException {
+        return insertExecuteQuery(SQL_INSERT, literature);
     }
 
     public void deleteLiteratureByID(int id) throws DAOException {
-        String sqlQuery = "delete from literatures  where id = ?";
         List<String> params = Collections.singletonList(String.valueOf(id));
-        executeQuery(sqlQuery, params);
+        executeQuery(SQL_DELETE_QUERY, params);
     }
 
     public Literature readByID(int id) throws DAOException {
@@ -69,7 +63,7 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
             Literature literature = new Literature();
             literature.setId(result.getInt(ID_COLUMN_LABEL));
             literature.setLiteratureName((result.getString("name")));
-            literature.setGenre(Genre.valueOf(result.getString("genre")));
+            literature.setGenre(Genre.valueOf(result.getString("genres").toUpperCase(Locale.ROOT)));
             literature.setAuthor(result.getString("author"));
             literature.setLiteratureType(LiteratureType.valueOf(result.getString("type")));
             literature.setAvailable(Boolean.parseBoolean(result.getString("isAvailable")));
@@ -98,8 +92,8 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
             resultSet=statement.executeQuery(SQL_READ_ALL_QUERY);
             List<Literature> literatureList=new ArrayList<>();
             while (resultSet.next()){
-//                Literature literature=buildEntity(resultSet);???
-                literatureList.add(buildEntity(resultSet));
+                Literature literature=buildEntity(resultSet);
+                literatureList.add(literature);
             }
             return literatureList;
         } catch (SQLException e) {
@@ -107,5 +101,16 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
         }finally {
             closeConnection(connection,statement,resultSet);
         }
+    }
+
+    @Override
+    protected void fetchSet(PreparedStatement stmt, Literature entity) throws SQLException {
+        stmt.setString(1,entity.getLiteratureName());
+        stmt.setString(2,entity.getAuthor());
+        stmt.setString(3,entity.getGenre().toString());
+        stmt.setBoolean(4,entity.isAvailable());
+        stmt.setString(5,entity.getLiteratureType().toString());
+        stmt.setInt(6,entity.getBookPages());
+        stmt.setString(7,entity.getPublisher());
     }
 }

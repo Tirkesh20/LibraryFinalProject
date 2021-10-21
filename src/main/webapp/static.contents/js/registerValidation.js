@@ -13,7 +13,6 @@ let minLoginLength = 5;
 let minPasswordLength = 4;
 let notFoundIndex = -1;
 
-let phone = document.getElementById("phone");
 let password = document.getElementById("password");
 let confirmPassword = document.getElementById("confirm_password");
 let submit = document.getElementById("reg_submit");

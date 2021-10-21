@@ -19,7 +19,7 @@
     <fmt:message key="menu.profile" var="profile"/>
     <fmt:message key="menu.show_taxis" var="show_taxis"/>
     <fmt:message key="menu.add_taxi" var="add_taxi"/>
-    <fmt:message key="menu.find_taxi" var="find_taxi"/>
+    <fmt:message key="menu.find_literature" var="find_taxi"/>
     <fmt:message key="admin.edit_rate" var="rate"/>
     <fmt:message key="menu.history.rate" var="history_rate"/>
 </fmt:bundle>

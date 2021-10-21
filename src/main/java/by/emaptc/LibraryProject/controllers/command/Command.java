@@ -15,6 +15,7 @@ String PASSWORD_PARAMETER = "password";
     /**
      * Attributes.
      */
+    int MAX_BOOK_COUNT=5;
      String USER_ATTRIBUTE ="user" ;
     String MESSAGE_ATTRIBUTE = "message";
     String LIST_ATTRIBUTE ="list";

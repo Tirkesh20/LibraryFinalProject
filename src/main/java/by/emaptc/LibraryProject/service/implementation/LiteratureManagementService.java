@@ -14,7 +14,7 @@ public class LiteratureManagementService {
     public void issueABook(LiteratureManagement management)throws ServiceException{
         try {
             dao.startTransaction();
-            dao.insertLiterature(management);
+            dao.insert(management);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         }finally {
@@ -42,5 +42,20 @@ public class LiteratureManagementService {
             }finally {
             dao.close();
         }
+    }
+
+    public int userHasLimit(int userId) throws ServiceException {
+        try {
+            dao.startTransaction();
+          return dao.countUserIssues(userId);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        } finally {
+            dao.close();
         }
+    }
+
+    public boolean userHasBook(int userId,int bookId) {
+        return true;
+    }
 }

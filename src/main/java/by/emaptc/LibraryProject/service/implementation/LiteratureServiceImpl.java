@@ -12,14 +12,15 @@ import java.util.List;
 
 public class LiteratureServiceImpl implements LiteratureService {
 
-private final LiteratureDAO dao= DaoProvider.getInstance().getLiteratureDAO();
+    private final LiteratureDAO dao= DaoProvider.getInstance().getLiteratureDAO();
+
     @Override
     public void add(Literature literature) throws ServiceException {
         try {
             dao.startTransaction();
             dao.insertLiterature(literature);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e.getMessage());
         }finally {
             dao.close();
         }
@@ -40,34 +41,33 @@ private final LiteratureDAO dao= DaoProvider.getInstance().getLiteratureDAO();
 
     @Override
     public void delete(int id) throws ServiceException {
-    try {
-        dao.startTransaction();
-        dao.deleteById(id);
-    } catch (DAOException e) {
-        throw new ServiceException(e.getMessage());
-    }finally {
-        dao.close();
-    }
+        try {
+            dao.startTransaction();
+            dao.deleteById(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }finally {
+            dao.close();
+        }
     }
 
     @Override
     public Literature read(int id) throws ServiceException {
         try {
-        dao.startTransaction();
-         return dao.readByID(id);
-    } catch (DAOException e) {
-        e.printStackTrace();
-    }finally {
+            dao.startTransaction();
+            return dao.readByID(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }finally {
             dao.close();
         }
-        return null;
     }
 
     @Override
     public List<Literature> readAll() throws ServiceException {
         try {
             dao.startTransaction();
-           return dao.readAll();
+            return dao.readAll();
         }catch (DAOException e){
             throw new ServiceException(e.getMessage());
         }finally {

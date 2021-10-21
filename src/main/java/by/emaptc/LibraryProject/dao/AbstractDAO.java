@@ -1,5 +1,6 @@
 package by.emaptc.LibraryProject.dao;
 
+import by.emaptc.LibraryProject.entity.LiteratureManagement;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 import by.emaptc.LibraryProject.dao.pool.ConnectionManager;
 
@@ -54,11 +55,11 @@ public class AbstractDAO<T> {
         }
     }
 
-    protected int insertExecuteQuery(String sqlQuery, List<String> parameters) throws DAOException {
+    protected int insertExecuteQuery(String sqlQuery, T entity) throws DAOException {
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(sqlQuery,Statement.RETURN_GENERATED_KEYS);
-            buildStatement(parameters,preparedStatement);
+            preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            fetchSet(preparedStatement,entity);
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
             {
@@ -169,11 +170,7 @@ public class AbstractDAO<T> {
     }
 
 
-    protected int insert (T entity, String sqlQuery) throws DAOException {
-        List<String> params = getEntityParameters(entity);
-        return insertExecuteQuery(sqlQuery, params);
-    }
-
+    protected void fetchSet(PreparedStatement stmt, T entity) throws SQLException {}
 
     public void buildStatement ( List < String > parameters, PreparedStatement preparedStatement) throws DAOException {
         try {
