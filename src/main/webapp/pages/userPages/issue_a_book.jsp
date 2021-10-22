@@ -4,22 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <fmt:bundle basename="page_content">
-    <fmt:message key="admin.role" var="role"/>
     <fmt:message key="issue.confirm" var="confirm"/>
     <fmt:message key="literature.name" var="Literature name"/>
-    <fmt:message key="register.email" var="email"/>
-    <fmt:message key="client.telephone" var="phone"/>
-    <fmt:message key="register.password" var="password"/>
-    <fmt:message key="register.repeat_password" var="repeat_password"/>
-    <fmt:message key="register.first_name" var="first_name"/>
-    <fmt:message key="register.last_name" var="last_name"/>
-    <fmt:message key="register.register_submit" var="register_submit"/>
-    <fmt:message key="register.confirmation_code" var="confirmation_code"/>
-    <fmt:message key="title.login" var="title_login"/>
-    <fmt:message key="title.password" var="title_password"/>
-    <fmt:message key="title.confirm_password" var="title_confirm_password"/>
-    <fmt:message key="title.first_name" var="title_first_name"/>
-    <fmt:message key="title.last_name" var="title_last_name"/>
+    <fmt:message key="literature.feedback" var="feedbacks"/>
 </fmt:bundle>
 
 <!DOCTYPE html>
