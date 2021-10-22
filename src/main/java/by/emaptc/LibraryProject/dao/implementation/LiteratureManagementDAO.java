@@ -1,15 +1,12 @@
 package by.emaptc.LibraryProject.dao.implementation;
 
 import by.emaptc.LibraryProject.dao.AbstractDAO;
-import by.emaptc.LibraryProject.entity.Literature;
 import by.emaptc.LibraryProject.entity.LiteratureManagement;
-import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.entity.enums.Genre;
-import by.emaptc.LibraryProject.entity.enums.LiteratureType;
 import by.emaptc.LibraryProject.entity.enums.Status;
 import by.emaptc.LibraryProject.exceptions.DAOException;
 
 import java.sql.*;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,8 +17,12 @@ public class LiteratureManagementDAO  extends AbstractDAO<LiteratureManagement>{
     private String SQL_READ_BY_ID_QUERY="Select  from literature_managements where id=?";
     private final String SQL_READ_BY_USER_ID="SELECT FROM literature_managements where user_id=?";
     private final String SQL_UPDATE_ISSUE_STATUS="UPDATE  literature_managements SET status where id=? ";
-    private final String SQL_INSERT="INSERT INTO literature_managements ( user_id ,issue_status, date_of_give, date_to_return, literature_id) VALUES(?,?,?,?,?)";
+    private final String SQL_INSERT="INSERT INTO literature_managements ( user_id, literature_id,issue_status, date_of_give, date_to_return) VALUES(?,?,?,?,?)";
     private final String SQL_COUNT_ISSUES="SELECT COUNT(*) FROM literature_managements where user_id=? and issue_status=?";
+    private final String SQL_EXPIRED_ISSUES=" SELECT * FROM literature_managements"+"WHERE date_to_return < NOW()"+" ORDER BY expiry_date ASC LIMIT 0,30";
+
+
+
 
 
     public LiteratureManagement readByID(int id) throws DAOException {
@@ -45,7 +46,7 @@ public class LiteratureManagementDAO  extends AbstractDAO<LiteratureManagement>{
     }
 
     public int insert(LiteratureManagement entity) throws DAOException {
-       return insertExecuteQuery(SQL_INSERT,entity);
+        return insertExecuteQuery(SQL_INSERT,entity);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class LiteratureManagementDAO  extends AbstractDAO<LiteratureManagement>{
             literature.setLiterature_id(Integer.parseInt(result.getString("literature_id")));
             literature.setUser_id(Integer.parseInt(result.getString("user_id")));
             literature.setStatus(Status.valueOf(result.getString("issue_status")));
-            literature.setDateOfGive(result.getTimestamp("date_of_give"));
-            literature.setDateToReturn(result.getTimestamp("date_to_return"));
+            literature.setDateOfGive(result.getObject("date_of_give ",OffsetDateTime.class));
+            literature.setDateToReturn(result.getObject("date_to_return",OffsetDateTime.class));
             return literature;
         }catch (SQLException e){
             throw new DAOException(e.getMessage());
@@ -67,10 +68,11 @@ public class LiteratureManagementDAO  extends AbstractDAO<LiteratureManagement>{
     @Override
     protected void fetchSet(PreparedStatement stmt, LiteratureManagement entity) throws SQLException {
         stmt.setInt(1, entity.getUser_id());
-        stmt.setString(2, entity.getStatus().toString());
-        stmt.setTimestamp(3,  entity.getDateOfGive());
-        stmt.setTimestamp(4,  entity.getDateToReturn());
-        stmt.setInt(5, entity.getLiterature_id());
+        stmt.setInt(2, entity.getLiterature_id());
+        stmt.setString(3, entity.getStatus().toString());
+        stmt.setObject(4, entity.getDateOfGive());
+        stmt.setObject(5,  entity.getDateToReturn());
+
     }
 
 

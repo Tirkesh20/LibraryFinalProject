@@ -23,26 +23,15 @@ public class IssueCommand implements Command {
         User user=(User) session.getAttribute(USER_ATTRIBUTE);
         int userId=user.getId();
         int bookId= Integer.parseInt(request.getParameter("book_id"));
+        int returnDay=Integer.parseInt(request.getParameter("return_date"));
         if (literatureManagementService.userHasBook(userId,bookId)){
             return new Page();
         }
         if (literatureManagementService.userHasLimit(userId)>MAX_BOOK_COUNT){
             return new Page();
         }
-        LiteratureManagement literatureManagement=new LiteratureManagement();
-        literatureManagement.setUser_id(userId);
-        literatureManagement.setLiterature_id(bookId);
-        literatureManagement.setDateOfGive(currentDate());
-        long date=Date.parse(request.getParameter("date"));
-        literatureManagement.setDateToReturn(new Timestamp(date));
-        literatureManagementService.issueABook(literatureManagement);
+        literatureManagementService.issueABook(userId,bookId,returnDay);
         return null;
     }
 
-    private Timestamp currentDate(){
-        Calendar calendar=Calendar.getInstance();
-        Date date=calendar.getTime();
-        return new Timestamp(date.getTime());
-
-    }
 }

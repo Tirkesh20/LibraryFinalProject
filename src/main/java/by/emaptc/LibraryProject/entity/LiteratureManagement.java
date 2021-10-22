@@ -4,14 +4,15 @@ import by.emaptc.LibraryProject.entity.enums.Status;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 public class LiteratureManagement extends Entity {
     private int user_id;
     private int literature_id;
-    private Timestamp dateOfGive;
-    private Timestamp dateToReturn;
+    private OffsetDateTime dateOfGive;
+    private OffsetDateTime dateToReturn;
     private Status status;
 
 
@@ -31,19 +32,19 @@ public class LiteratureManagement extends Entity {
         this.literature_id = literature_id;
     }
 
-    public Timestamp getDateOfGive() {
+    public OffsetDateTime getDateOfGive() {
         return dateOfGive;
     }
 
-    public void setDateOfGive(Timestamp dateOfGive) {
+    public void setDateOfGive(OffsetDateTime dateOfGive) {
         this.dateOfGive = dateOfGive;
     }
 
-    public Timestamp getDateToReturn() {
+    public OffsetDateTime getDateToReturn() {
         return dateToReturn;
     }
 
-    public void setDateToReturn(Timestamp dateToReturn) {
+    public void setDateToReturn(OffsetDateTime dateToReturn) {
         this.dateToReturn = dateToReturn;
     }
 
