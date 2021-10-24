@@ -5,18 +5,18 @@ public class ServiceProvider {
     private LiteratureServiceImpl literatureServiceImpl =new LiteratureServiceImpl();
     private LiteratureManagementService literatureManagementService=new LiteratureManagementService();
 
-private ServiceProvider(){
+    private ServiceProvider(){
 
-}
+    }
 
-private static class SingletonProvider{
-    private static final ServiceProvider INSTANCE=new ServiceProvider();
+    private static class SingletonProvider{
+        private static final ServiceProvider INSTANCE=new ServiceProvider();
 
-}
+    }
 
-public static  ServiceProvider getInstance(){
-    return SingletonProvider.INSTANCE;
-}
+    public static  ServiceProvider getInstance(){
+        return SingletonProvider.INSTANCE;
+    }
     public UserServiceImpl getUserService() {
         return userService;
     }

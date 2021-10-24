@@ -15,6 +15,6 @@ public interface LiteratureService {
 
     public Literature read(int id)throws ServiceException;
 
-    public List<Literature> readAll( )throws ServiceException;
+    public List<Literature> readAll(int noOfSet,int noOfPages)throws ServiceException;
 
 }

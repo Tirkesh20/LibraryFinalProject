@@ -17,7 +17,8 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
     private String SQL_READ_ALL_QUERY="SELECT * FROM literatures";
     private String SQL_INSERT="INSERT INTO literatures (name, lastname ,username, password, email, status,publisher) VALUES(?,?,?,?,?,?,?)";
     private final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT * FROM literature_managements "+"INNER JOIN literatures ON literature_managements.literature_id=literatures.id "+"WHERE user_id=?";
-
+    private final String SQL_ROW_CALC="SELECT SQL_CALC_FOUND_ROWS * from literatures limit ";
+    private int noOfRecords;
 
     public int insertLiterature(Literature literature) throws DAOException {
         return insertExecuteQuery(SQL_INSERT, literature);
@@ -26,6 +27,10 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
     public void deleteLiteratureByID(int id) throws DAOException {
         List<String> params = Collections.singletonList(String.valueOf(id));
         executeQuery(SQL_DELETE_QUERY, params);
+    }
+
+    public int getNoOfRecords() {
+        return noOfRecords;
     }
 
     public Literature readByID(int id) throws DAOException {
@@ -84,23 +89,27 @@ public class LiteratureDAO extends AbstractDAO<Literature> {
         executeQuery(SQL_UPDATE_QUERY, params);
     }
 
-    public List<Literature> readAll() throws DAOException {
+    public List<Literature> readAll(int offset,int noOfPages) throws DAOException {
+        List<Literature> literatureList=new ArrayList<Literature>();
         Statement statement=null;
         try {
             connection=getConnection();
-             statement=connection.createStatement();
-            resultSet=statement.executeQuery(SQL_READ_ALL_QUERY);
-            List<Literature> literatureList=new ArrayList<>();
+            statement=connection.createStatement();
+            resultSet=statement.executeQuery(SQL_ROW_CALC+offset+","+noOfPages);
             while (resultSet.next()){
-                Literature literature=buildEntity(resultSet);
-                literatureList.add(literature);
+                literatureList.add(buildEntity(resultSet));
             }
-            return literatureList;
+            resultSet.close();
+            resultSet=statement.executeQuery("SELECT FOUND_ROWS()");
+            if (resultSet.next())
+                this.noOfRecords=resultSet.getInt(1);
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
-        }finally {
+            e.printStackTrace();
+        }
+        finally {
             closeConnection(connection,statement,resultSet);
         }
+        return literatureList;
     }
 
     @Override

@@ -9,6 +9,13 @@ public class Page  {
     public static final String REGISTER_PAGE_PATH = "/pages/common/register.jsp";
 
     /**
+     * User pages.
+     */
+    public static final String LITERATURE_LIST="/pages/userPages/literatureList.jsp";
+
+
+
+    /**
      *admin pages
      */
     public static final String EDIT_RATE_PAGE_PATH = "/pages/admin/editRate.jsp";

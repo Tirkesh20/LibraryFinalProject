@@ -51,6 +51,8 @@ public class LiteratureServiceImpl implements LiteratureService {
         }
     }
 
+
+
     @Override
     public Literature read(int id) throws ServiceException {
         try {
@@ -64,15 +66,19 @@ public class LiteratureServiceImpl implements LiteratureService {
     }
 
     @Override
-    public List<Literature> readAll() throws ServiceException {
+    public List<Literature> readAll(int noOfSet, int noOfPages) throws ServiceException {
         try {
             dao.startTransaction();
-            return dao.readAll();
+            return dao.readAll(noOfSet,noOfPages);
         }catch (DAOException e){
             throw new ServiceException(e.getMessage());
         }finally {
             dao.close();
         }
+    }
+
+    public int noOfRecord(){
+        return dao.getNoOfRecords();
     }
 
     public List<Literature> returnUserLiteratures(int id) throws ServiceException {

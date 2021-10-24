@@ -21,6 +21,14 @@ public class Test {
     }
 
     @org.junit.Test
+    public  void test() throws ServiceException {
+        List<Literature> literatureList=literatureService.readAll(0,5);
+        for (Literature l: literatureList) {
+            System.out.println(l);
+        }
+        System.out.println(literatureService.noOfRecord());
+    }
+    @org.junit.Test
     public void testUSERFUNC() throws ServiceException {
         literatureManagementService.issueABook(1,1,3);
     }

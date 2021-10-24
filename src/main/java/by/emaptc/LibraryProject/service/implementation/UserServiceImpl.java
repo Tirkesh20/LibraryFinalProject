@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public int registerUser(User user) throws ServiceException {
         try {
             userDAO.startTransaction();
-          return   userDAO.insertUser(user);
+            return   userDAO.insertUser(user);
         } catch (DAOException e) {
             throw new ServiceException("Exception during user register operation user = [" + user.toString() + "]", e);
         } finally {

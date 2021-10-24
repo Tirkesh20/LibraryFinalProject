@@ -66,10 +66,10 @@
             <c:choose>
                 <c:when test="${sessionScope.user.role == 'USER' }">
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=dispatcher">${pageScope.order}</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=COMMON_LITERATURES">${pageScope.order}</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=history">${pageScope.history}</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=COMMON_USER_LITERATURES">${pageScope.history}</a>
                     </li>
                     <li>
                         <tag:status/>

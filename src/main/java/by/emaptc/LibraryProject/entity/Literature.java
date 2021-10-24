@@ -15,11 +15,9 @@ public class Literature extends Entity {
     private String publisher;
 
 
-
     public Literature(){
 
     }
-
 
     public String getAuthor() {
         return author;

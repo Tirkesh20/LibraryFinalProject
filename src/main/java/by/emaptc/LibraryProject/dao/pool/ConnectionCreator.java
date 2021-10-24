@@ -30,6 +30,9 @@ public class ConnectionCreator  {
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(RESOURCE_BUNDLE_FILE_NAME);
 
+    public ConnectionCreator(){
+
+    }
     public Deque<Connection> createPool() {
         LinkedList<Connection> pool = new LinkedList<>();
         String poolSizeValue = RESOURCE_BUNDLE.getString(POOL_SIZE_PROPERTY_KEY);

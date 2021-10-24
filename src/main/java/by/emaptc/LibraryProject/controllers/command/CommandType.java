@@ -8,6 +8,8 @@ import by.emaptc.LibraryProject.controllers.command.authCommand.LoginCommand;
 import by.emaptc.LibraryProject.controllers.command.authCommand.RegisterCommand;
 import by.emaptc.LibraryProject.controllers.command.common.LanguageCommand;
 import by.emaptc.LibraryProject.controllers.command.userCommand.IssueCommand;
+import by.emaptc.LibraryProject.controllers.command.userCommand.ShowLiteraturesCommand;
+import by.emaptc.LibraryProject.controllers.command.userCommand.ShowUserBooksCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,10 @@ public enum CommandType {
     /**
      * Client Command
      */
+
     COMMON_ISSUE(new IssueCommand()),
+    COMMON_LITERATURES(new ShowLiteraturesCommand()),
+    COMMON_USER_LITERATURES(new ShowUserBooksCommand()),
     COMMON_RETURN_ISSUE(new IssueCommand());
 
     private final Command command;
