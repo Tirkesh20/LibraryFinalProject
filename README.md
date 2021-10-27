@@ -13,6 +13,7 @@ Log4j2
 Pagination
 Double validation
 Localization: EN, RU
+First Header | Second Header
 Command	GUEST	CLIENT	ADMIN
 Change language	*	*	*
 View most popular drinks	*	*	*
