@@ -4,7 +4,7 @@ Admin		Password1!
 Application description
 The user's roles and actions available to them are described in the table below.
 
-Key elements
+#Key elements<h1>
 MySQL database
 Custom connection pool
 JavaEE (Java Servlets, JSP)
@@ -13,22 +13,22 @@ Log4j2
 Pagination
 Double validation
 Localization: EN, RU
-First Header | Second Header
--------------|--------------
-First Header | Second Header
-Command	GUEST	CLIENT	ADMIN
-Change language	*	*	*
-View most popular drinks	*	*	*
-View menu	*	*	*
-View Product card	*	*	*
-Sign in		*	*
-Sign up	*		
-Sign out		*	*
-Load shopping cart		*	*
-Add products to shopping cart		*	*
-Remove product from shopping cart		*	*
-Create order		*	*
-Update Drink			*
+
+    Command                      |GUEST|CLIENT|ADMIN
+---------------------------------|-----|------|------
+Change language                  |	*	 |	 *  |  *
+View most popular drinks         |	*	 |   *  |	 *
+View menu	                       |	*	 |	 *  |  *
+View Product card	               |	*	 |	 *  |  *
+Sign in		                       |	   |	 *  |  * 
+Sign up	                         |	*	 |	    |   	
+Sign out		                     |		 |	 *  |  *
+See list of literatures       	 |	*	 |	 *  |  *
+Add literature to library	       |	   |	    |  *
+Remove literature from library   |	   |	    |  *
+Update literature from library   |	   |	    |  *
+Issue  literature		             |		 |	 *  |   	
+
 Commands which will be added
 View User profile and change user's information.
 View history of orders.
