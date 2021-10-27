@@ -14,21 +14,11 @@ Pagination
 Double validation
 Localization: EN, RU
 
-    Command    |GUEST|CLIENT|ADMIN
----------------|-----|------|------
-    Command    |GUEST|CLIENT|ADMIN
-    Command    |GUEST|CLIENT|ADMIN
-Change language|  *  |	 *  |  *
-View most popular literatures|	*	 |   *  |	 *
-View menu|  *  |  *  |  *
-Sign in		                       |	   |	 *  |  * 
-Sign up	                         |	*	 |	    |   	
-Sign out		                     |		 |	 *  |  *
-See list of literatures       	 |	*	 |	 *  |  *
-Add literature to library	       |	   |	    |  *
-Remove literature from library   |	   |	    |  *
-Update literature from library   |	   |	    |  *
-Issue  literature		             |		 |	 *  |   	
+First Header | Second Header | Third Header
+------------ | ------------- | ------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
+
 
 Commands which will be added
 View User profile and change user's information.
