@@ -14,8 +14,8 @@ Pagination
 Double validation
 Localization: EN, RU
 
-First Header | Second Header | Third Header
------------- | ------------- | ------------
+First Header | Second Header | Third Header | Admin
+------------ | ------------- | ------------ | -----
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
