@@ -16,6 +16,8 @@ Localization: EN, RU
 
     Command    |GUEST|CLIENT|ADMIN
 ---------------|-----|------|------
+    Command    |GUEST|CLIENT|ADMIN
+    Command    |GUEST|CLIENT|ADMIN
 Change language|  *  |	 *  |  *
 View most popular literatures|	*	 |   *  |	 *
 View menu|  *  |  *  |  *
