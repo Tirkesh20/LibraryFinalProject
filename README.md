@@ -14,12 +14,11 @@ Pagination
 Double validation
 Localization: EN, RU
 
-    Command                      |GUEST|CLIENT|ADMIN
----------------------------------|-----|------|------
-Change language                  |	*	 |	 *  |  *
-View most popular drinks         |	*	 |   *  |	 *
-View menu	                       |	*	 |	 *  |  *
-View Product card	               |	*	 |	 *  |  *
+    Command    |GUEST|CLIENT|ADMIN
+---------------|-----|------|------
+Change language|  *  |	 *  |  *
+View most popular literatures|	*	 |   *  |	 *
+View menu|  *  |  *  |  *
 Sign in		                       |	   |	 *  |  * 
 Sign up	                         |	*	 |	    |   	
 Sign out		                     |		 |	 *  |  *
