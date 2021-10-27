@@ -16,8 +16,17 @@ Localization: EN, RU
 
 First Header | Second Header | Third Header | Admin
 ------------ | ------------- | ------------ | -----
-Content from cell 1 |  *  |  *  |  *  |
-Content in the first column | Content in the second column
+Change language |  *  |	 *  |  *
+View most popular literatures |	*	 |   *  |	 *
+View menu|  *  |  *  |  *
+Sign in		                       |	   |	 *  |  * 
+Sign up	                         |	*	 |	    |   	
+Sign out		                     |		 |	 *  |  *
+See list of literatures       	 |	*	 |	 *  |  *
+Add literature to library	       |	   |	    |  *
+Remove literature from library   |	   |	    |  *
+Update literature from library   |	   |	    |  *
+Issue  literature		             |		 |	 *  | 
 
 
 Commands which will be added
