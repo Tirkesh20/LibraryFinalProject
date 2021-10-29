@@ -9,5 +9,5 @@ public interface FeedbackService {
 
     public List<Feedback> mostLiked()throws ServiceException;
 
-    void add(int id, int literature_id) throws ServiceException;
+    int insert(Feedback feedback) throws ServiceException;
 }

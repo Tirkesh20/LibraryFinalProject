@@ -2,6 +2,7 @@ package by.emaptc.LibraryProject.controller.command.implementation.userCommand;
 
 import by.emaptc.LibraryProject.controller.command.Command;
 import by.emaptc.LibraryProject.controller.command.Page;
+import by.emaptc.LibraryProject.entity.Feedback;
 import by.emaptc.LibraryProject.entity.User;
 import by.emaptc.LibraryProject.exception.ServiceException;
 import by.emaptc.LibraryProject.service.FeedbackService;
@@ -19,7 +20,12 @@ public class AddFeedbackCommand implements Command {
             return new Page(Page.LOGIN_PAGE_PATH,true);
         }
         int literature_id=Integer.parseInt(request.getParameter("literature_id"));
-        feedbackService.add(user.getId(),literature_id);
+        Feedback feedback=new Feedback();
+        feedback.setUserId(user.getId());
+        feedback.setBookId(literature_id);
+        feedback.setComment("comment");
+        feedback.setMark(1);
+        feedbackService.insert(feedback);
         return new Page();
 
     }

@@ -12,8 +12,8 @@ import java.util.*;
 public class LiteratureDAO extends AbstractDAO<Literature> {
 
     private static final String SQL_UPDATE_QUERY="UPDATE literatures SET name=?,author=?,genres=?,publisher=?,type=?  where id =?";
-    private static final String SQL_DELETE_QUERY="DELETE  FROM literatures where id=?";
-    private static final String SQL_READ_BY_ID_QUERY="SELECT * FROM literatures where id=?";
+    private static final String SQL_DELETE_QUERY="DELETE  FROM literatures where l_id=?";
+    private static final String SQL_READ_BY_ID_QUERY="SELECT * FROM literatures where l_id=?";
     private static final String SQL_READ_ALL_QUERY="SELECT * FROM literatures";
     private static final String SQL_INSERT="INSERT INTO literatures (name, lastname ,username, password, email, status,publisher) VALUES(?,?,?,?,?,?,?)";
     private static final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT * FROM literature_managements "+"INNER JOIN literatures ON literature_managements.literature_id=literatures.id "+"WHERE user_id=?";

@@ -19,7 +19,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
 
     private static final String LOGIN_QUERY="SELECT users.u_id,users.name,users.lastname,"+"users.email,users.username,users.password,users.status," +
             "roles.usertype from users"+
-            " inner join roles on users.role_id = roles.id where" +
+            " inner join roles on users.role_id = roles.r_id where" +
             "(username=? AND password=?)";
     private  static final String SQL_INSERT="INSERT INTO users (name, lastname ,username, password, email, status) VALUES(?,?,?,?,?,?)";
 
@@ -42,7 +42,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
 
 
     public void updateStatus(int userID, String status) throws DAOException {
-        String sqlQuery = "UPDATE users SET status=? WHERE id=?";
+        String sqlQuery = "UPDATE users SET status=? WHERE u_id=?";
         String id=String.valueOf(userID);
         List<String> params = Arrays.asList(status, id);
         executeQuery(sqlQuery, params);
@@ -68,7 +68,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
 
 
     public void deleteUserById(int id) throws DAOException {
-        String sqlQuery = "update  users  set status=? where id = ?";
+        String sqlQuery = "update  users  set status=? where u_id = ?";
         List<String> params = Collections.singletonList(String.valueOf(id));
         executeQuery(sqlQuery, params);
     }
@@ -88,7 +88,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
     public User buildEntity(ResultSet resultSet) throws  DAOException {
         try {
             User user = new User();
-            user.setId(resultSet.getInt("id"));
+            user.setId(resultSet.getInt("u_id"));
             user.setName(resultSet.getString("name"));
             user.setLastName(resultSet.getString("lastname"));
             user.setUsername(resultSet.getString("username"));
