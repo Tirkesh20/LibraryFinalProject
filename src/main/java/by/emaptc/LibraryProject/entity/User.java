@@ -1,6 +1,6 @@
 package by.emaptc.LibraryProject.entity;
 
-import by.emaptc.LibraryProject.entity.enums.Role;
+import by.emaptc.LibraryProject.entity.enumEntity.Role;
 
 import java.io.Serializable;
 import java.util.Objects;

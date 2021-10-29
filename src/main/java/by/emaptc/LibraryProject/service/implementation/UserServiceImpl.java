@@ -3,8 +3,8 @@ package by.emaptc.LibraryProject.service.implementation;
 import by.emaptc.LibraryProject.dao.implementation.DaoProvider;
 import by.emaptc.LibraryProject.dao.implementation.UserDAOImpl;
 import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.exceptions.DAOException;
-import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.exception.DAOException;
+import by.emaptc.LibraryProject.exception.ServiceException;
 import by.emaptc.LibraryProject.service.UserService;
 
 public class UserServiceImpl implements UserService {

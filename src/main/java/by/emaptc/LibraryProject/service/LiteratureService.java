@@ -1,7 +1,7 @@
 package by.emaptc.LibraryProject.service;
 
 import by.emaptc.LibraryProject.entity.Literature;
-import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.exception.ServiceException;
 
 import java.util.List;
 
@@ -17,4 +17,7 @@ public interface LiteratureService {
 
     public List<Literature> readAll(int noOfSet,int noOfPages)throws ServiceException;
 
+    int noOfRecord();
+
+    List<Literature> returnUserLiteratures(int i) throws ServiceException;
 }

@@ -1,14 +1,15 @@
 import by.emaptc.LibraryProject.entity.Literature;
-import by.emaptc.LibraryProject.exceptions.ServiceException;
-import by.emaptc.LibraryProject.service.implementation.LiteratureManagementService;
-import by.emaptc.LibraryProject.service.implementation.LiteratureServiceImpl;
+import by.emaptc.LibraryProject.exception.ServiceException;
+import by.emaptc.LibraryProject.service.LiteratureManagementService;
+import by.emaptc.LibraryProject.service.LiteratureService;
+import by.emaptc.LibraryProject.service.implementation.LiteratureManagementServiceImp;
 import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import java.util.List;
 
 public class Test {
 
-    LiteratureServiceImpl literatureService= ServiceProvider.getInstance().getLiteratureService();
+    LiteratureService literatureService= ServiceProvider.getInstance().getLiteratureService();
     LiteratureManagementService literatureManagementService= ServiceProvider.getInstance().getLiteratureManagementService();
 
     @org.junit.Test

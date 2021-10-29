@@ -1,7 +1,7 @@
 package by.emaptc.LibraryProject.entity;
 
-import by.emaptc.LibraryProject.entity.enums.Genre;
-import by.emaptc.LibraryProject.entity.enums.LiteratureType;
+import by.emaptc.LibraryProject.entity.enumEntity.Genre;
+import by.emaptc.LibraryProject.entity.enumEntity.LiteratureType;
 
 import java.util.Objects;
 

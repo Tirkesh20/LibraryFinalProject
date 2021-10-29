@@ -1,10 +1,7 @@
 package by.emaptc.LibraryProject.entity;
 
-import by.emaptc.LibraryProject.entity.enums.Status;
+import by.emaptc.LibraryProject.entity.enumEntity.Status;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 

@@ -11,13 +11,54 @@
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>by.emaptc.LibraryProject.controllers.Controller</servlet-class>
+        <servlet-class>by.emaptc.LibraryProject.controller.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <jsp-file>/WEB-INF/jsp/common/login.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <jsp-file>/WEB-INF/jsp/common/register.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UsersLiteratures</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userPage/userLiteratureList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UsersLiteratures</servlet-name>
+        <url-pattern>/literatures</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IssueCommand</servlet-name>
+        <jsp-file>/WEB-INF/jsp/userPages/issue_literature.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IssueCommand</servlet-name>
+        <url-pattern>/issue</url-pattern>
+    </servlet-mapping>
+
 
     <filter-mapping>
         <filter-name>commandFilter</filter-name>
@@ -26,7 +67,17 @@
 
     <filter>
         <filter-name>commandFilter</filter-name>
-        <filter-class>by.emaptc.LibraryProject.controllers.filter.CommandFilter</filter-class>
+        <filter-class>by.emaptc.LibraryProject.controller.filter.CommandFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>by.emaptc.LibraryProject.controller.filter.EncodingFilter</filter-class>
     </filter>
 
 </web-app>

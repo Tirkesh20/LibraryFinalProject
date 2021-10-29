@@ -2,8 +2,8 @@ package by.emaptc.LibraryProject.dao.implementation;
 
 import by.emaptc.LibraryProject.dao.AbstractDAO;
 import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.entity.enums.Role;
-import by.emaptc.LibraryProject.exceptions.DAOException;
+import by.emaptc.LibraryProject.entity.enumEntity.Role;
+import by.emaptc.LibraryProject.exception.DAOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,32 +15,28 @@ import java.util.List;
 import java.util.Locale;
 
 public class UserDAOImpl extends AbstractDAO<User> {
-    private Connection connection=null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
 
-    private String LOGIN_QUERY="SELECT users.id,users.name,users.lastname,"+"users.email,users.username,users.password,users.status," +
+
+    private static final String LOGIN_QUERY="SELECT users.u_id,users.name,users.lastname,"+"users.email,users.username,users.password,users.status," +
             "roles.usertype from users"+
             " inner join roles on users.role_id = roles.id where" +
             "(username=? AND password=?)";
-    private  String SQL_INSERT="INSERT INTO users (name, lastname ,username, password, email, status) VALUES(?,?,?,?,?,?)";
+    private  static final String SQL_INSERT="INSERT INTO users (name, lastname ,username, password, email, status) VALUES(?,?,?,?,?,?)";
 
 
     public User login(String login, String password) throws DAOException {
         List<String> params = Arrays.asList(login, password);
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(LOGIN_QUERY);
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY)){
             buildStatement(params, preparedStatement);
-            resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                return buildEntity(resultSet);
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()){
+                    return buildEntity(resultSet);
+                }
             }
             return null;
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
-        }finally {
-            closeConnection(connection,preparedStatement,resultSet);
         }
     }
 
@@ -57,6 +53,7 @@ public class UserDAOImpl extends AbstractDAO<User> {
         List<String> params = Collections.singletonList(login);
         return getEntity(sqlQuery, params) == null;
     }
+
 
     public boolean containsEmail(String email) throws DAOException {
         String sqlQuery = "SELECT * FROM users WHERE email=?";

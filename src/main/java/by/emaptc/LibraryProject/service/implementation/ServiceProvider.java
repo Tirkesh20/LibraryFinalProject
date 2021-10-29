@@ -1,9 +1,15 @@
 package by.emaptc.LibraryProject.service.implementation;
 
+import by.emaptc.LibraryProject.service.FeedbackService;
+import by.emaptc.LibraryProject.service.LiteratureManagementService;
+import by.emaptc.LibraryProject.service.LiteratureService;
+import by.emaptc.LibraryProject.service.UserService;
+
 public class ServiceProvider {
-    private UserServiceImpl userService=new UserServiceImpl();
-    private LiteratureServiceImpl literatureServiceImpl =new LiteratureServiceImpl();
-    private LiteratureManagementService literatureManagementService=new LiteratureManagementService();
+    private final UserService userService=new UserServiceImpl();
+    private final LiteratureService literatureService =new LiteratureServiceImpl();
+    private final LiteratureManagementService literatureManagementService=new LiteratureManagementServiceImp();
+    private final FeedbackService feedbackService=new FeedbackServiceImp();
 
     private ServiceProvider(){
 
@@ -17,27 +23,24 @@ public class ServiceProvider {
     public static  ServiceProvider getInstance(){
         return SingletonProvider.INSTANCE;
     }
-    public UserServiceImpl getUserService() {
+
+    public UserService getUserService() {
         return userService;
     }
 
-    public void setUserService(UserServiceImpl userService) {
-        this.userService = userService;
+
+    public LiteratureService getLiteratureService() {
+        return literatureService;
     }
 
-    public LiteratureServiceImpl getLiteratureService() {
-        return literatureServiceImpl;
-    }
 
-    public void setLiteratureService(LiteratureServiceImpl literatureServiceImpl) {
-        this.literatureServiceImpl = literatureServiceImpl;
-    }
 
     public LiteratureManagementService getLiteratureManagementService() {
         return literatureManagementService;
     }
 
-    public void setLiteratureManagementService(LiteratureManagementService literatureManagementService) {
-        this.literatureManagementService = literatureManagementService;
+
+    public FeedbackService getFeedbackService() {
+        return feedbackService;
     }
 }

@@ -1,12 +1,12 @@
 package by.emaptc.LibraryProject.dao.implementation;
 
 public class DaoProvider {
-   private final UserDAOImpl userDAO=new UserDAOImpl();
+    private final UserDAOImpl userDAO=new UserDAOImpl();
     private final LiteratureDAO literatureDAO=new LiteratureDAO();
     private final LiteratureManagementDAO literatureManagementDAO=new LiteratureManagementDAO();
+    private final FeedbackDAO feedbackDAO=new FeedbackDAO();
 
     private DaoProvider(){
-
 
     }
 
@@ -16,10 +16,6 @@ public class DaoProvider {
 
     public static DaoProvider getInstance(){
         return SingletonProvider.instance;
-    }
-
-    private UserDAOImpl getUserDao(){
-        return userDAO;
     }
 
     public UserDAOImpl getUserDAO() {
@@ -34,4 +30,7 @@ public class DaoProvider {
         return literatureManagementDAO;
     }
 
+    public FeedbackDAO getFeedbackDAO() {
+        return feedbackDAO;
+    }
 }

@@ -5,10 +5,10 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700&amp;subset=cyrillic"
       rel="stylesheet">
 
-<fmt:bundle basename="page_content">
-    <fmt:message key="taxi.online" var="online"/>
-    <fmt:message key="taxi.status" var="status"/>
-</fmt:bundle>
+<%--<fmt:bundle basename="page_content">--%>
+<%--    <fmt:message key="user.online" var="online"/>--%>
+<%--    <fmt:message key="user.status" var="status"/>--%>
+<%--</fmt:bundle>--%>
 
 <span>${pageScope.status}</span>
 <span>${pageScope.online}</span>

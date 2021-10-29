@@ -1,7 +1,7 @@
 package by.emaptc.LibraryProject.service;
 
 import by.emaptc.LibraryProject.entity.User;
-import by.emaptc.LibraryProject.exceptions.ServiceException;
+import by.emaptc.LibraryProject.exception.ServiceException;
 
 public interface UserService {
 
@@ -9,4 +9,5 @@ public interface UserService {
 
  User login(String username,String password)throws ServiceException;
 
+ void deleteUser(int id) throws ServiceException;
 }
