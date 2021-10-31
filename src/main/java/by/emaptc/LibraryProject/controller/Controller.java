@@ -31,7 +31,7 @@ public class Controller extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        ConnectionPool connectionPool = ConnectionPool.retrieveConnectionPool();
         connectionPool.closePool();
     }
 

@@ -10,7 +10,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 
-@SuppressWarnings("SpellCheckingInspection")
 public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
@@ -27,8 +26,7 @@ public class ConnectionPool {
         pool = connectionCreator.createPool();
     }
 
-    public static ConnectionPool getInstance() {
-
+    public static ConnectionPool retrieveConnectionPool() {
         if (instanceIsNotAvailable.get()) {
             instanceLocker.lock();
             try {
@@ -51,7 +49,6 @@ public class ConnectionPool {
         } finally {
             poolLocker.unlock();
         }
-
         return connection;
     }
 

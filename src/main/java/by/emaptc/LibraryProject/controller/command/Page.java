@@ -14,6 +14,7 @@ public class Page  {
     public static final String LITERATURE_LIST="/WEB-INF/jsp/common/literatureList.jsp";
     public static final String USER_LITERATURE_LIST="/userLiteratures";
     public static final String ISSUE_URL="/issue";
+    public static final String WARN_PAGE="";
     /**
      *admin pages
      */

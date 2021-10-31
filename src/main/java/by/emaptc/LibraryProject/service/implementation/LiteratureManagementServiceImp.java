@@ -1,7 +1,7 @@
 package by.emaptc.LibraryProject.service.implementation;
 
+import by.emaptc.LibraryProject.dao.LiteratureManagementDAO;
 import by.emaptc.LibraryProject.dao.implementation.DaoProvider;
-import by.emaptc.LibraryProject.dao.implementation.LiteratureManagementDAO;
 import by.emaptc.LibraryProject.entity.LiteratureManagement;
 import by.emaptc.LibraryProject.entity.enumEntity.Status;
 import by.emaptc.LibraryProject.exception.DAOException;
@@ -24,46 +24,34 @@ public class LiteratureManagementServiceImp implements LiteratureManagementServi
         management.setDateToReturn(futureDate);
         management.setStatus(Status.ISSUED);
         try {
-            dao.startTransaction();
             dao.insert(management);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        }finally {
-            dao.close();
         }
     }
 
     public List<LiteratureManagement> findIssues(int id) throws ServiceException {
         try {
-            dao.startTransaction();
             return dao.readByUserId(id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        }finally {
-            dao.close();
         }
     }
 
     public void changeIssueStatus(int id,Status status)throws ServiceException{
         String s=status.toString();
         try {
-            dao.startTransaction();
             dao.updateIssueStatus(id,s);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        }finally {
-            dao.close();
         }
     }
 
     public int userHasLimit(int userId) throws ServiceException {
         try {
-            dao.startTransaction();
             return dao.countUserIssues(userId);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        } finally {
-            dao.close();
         }
     }
 

@@ -15,24 +15,18 @@ public class FeedbackServiceImp implements FeedbackService {
     @Override
     public List<Feedback> mostLiked() throws ServiceException {
         try {
-            feedbackDAO.startTransaction();
            return feedbackDAO.mostLiked();
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        }finally {
-            feedbackDAO.close();
         }
     }
 
     @Override
-    public int insert(Feedback feedback) throws ServiceException {
+    public int add(Feedback feedback) throws ServiceException {
         try {
-            feedbackDAO.startTransaction();
             return feedbackDAO.insert(feedback);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
-        }finally {
-            feedbackDAO.close();
         }
     }
 }
