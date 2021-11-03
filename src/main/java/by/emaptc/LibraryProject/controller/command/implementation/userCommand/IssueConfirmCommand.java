@@ -8,6 +8,7 @@ import by.emaptc.LibraryProject.service.LiteratureManagementService;
 import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class IssueConfirmCommand implements Command {
 
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         LiteratureManagementService literatureManagementService= ServiceProvider.getInstance().getLiteratureManagementService();
         HttpSession session=request.getSession();
         User user=(User) session.getAttribute(USER_ATTRIBUTE);
@@ -29,13 +30,12 @@ public class IssueConfirmCommand implements Command {
         int bookId= Integer.parseInt(request.getParameter("literature_id"));
         int returnDay=Integer.parseInt(request.getParameter("return_date"));
 
-        if (literatureManagementService.userHasBook(userId,bookId)){
-            return new Page();
+        if (!literatureManagementService.userHasBook(userId,bookId)
+                &&(!literatureManagementService.userHasLimit(userId))){
+            literatureManagementService.issueABook(userId,bookId,returnDay);
+            return new Page("/controller?command=USER_LITERATURE",false);
         }
-        if (literatureManagementService.userHasLimit(userId)>MAX_BOOK_COUNT){
-            return new Page();
-        }
-        literatureManagementService.issueABook(userId,bookId,returnDay);
+
         return new Page( "/controller?command=COMMON_LITERATURES",true);
     }
 

@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.service.LiteratureService;
 import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
  * {@code Command} realization for displaying list of user literatures.
  *
  */
-public class ShowUserBooksCommand implements Command {
+public class UserLiteratures implements Command {
 
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         LiteratureService literatureServiceImpl = ServiceProvider.getInstance().getLiteratureService();
         User user = (User) session.getAttribute("user");

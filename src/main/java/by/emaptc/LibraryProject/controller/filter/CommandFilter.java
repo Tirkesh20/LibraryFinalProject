@@ -17,7 +17,7 @@ public class CommandFilter implements Filter {
 
     private final EnumSet<CommandType> adminCommand = EnumSet.range(CommandType.SHOW_User,CommandType.DELETE_USER);
     private final EnumSet<CommandType> commonCommand = EnumSet.range(CommandType.LOGIN,CommandType.COMMON_CHANGE_LANGUAGE );
-    private final EnumSet<CommandType> clientCommand = EnumSet.range(CommandType.CONFIRM_ISSUE_LITERATURE,CommandType.COMMON_RETURN_ISSUE);
+    private final EnumSet<CommandType> clientCommand = EnumSet.range(CommandType.CONFIRM_ISSUE_LITERATURE,CommandType.RETURN_ISSUE);
 
     @Override
     public void init(FilterConfig fConfig) {
@@ -29,7 +29,6 @@ public class CommandFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-
         HttpServletRequest req = (HttpServletRequest) request;
         if (isAuthorized(req)) {
             chain.doFilter(request, response);

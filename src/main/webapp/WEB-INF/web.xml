@@ -46,12 +46,12 @@
 
     <servlet-mapping>
         <servlet-name>UsersLiteratures</servlet-name>
-        <url-pattern>/literatures</url-pattern>
+        <url-pattern>/userLiteratures</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>IssueCommand</servlet-name>
-        <jsp-file>/WEB-INF/jsp/userPages/issue_literature.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/userPage/issue_literature.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>

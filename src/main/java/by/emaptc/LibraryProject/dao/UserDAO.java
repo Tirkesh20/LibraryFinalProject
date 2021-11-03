@@ -7,7 +7,7 @@ public interface UserDAO {
 
     boolean containsEmail(String email) throws DAOException;
 
-    int insertUser(User user) throws DAOException;
+    int register(User user) throws DAOException;
 
     boolean containsLogin(String login) throws DAOException;
 

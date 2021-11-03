@@ -25,9 +25,11 @@
     font-size: 40px;
 }
 
+
 .title a:hover {
     color: #a32ea3;
 }
+
 
 .wrapper_form {
     width: 300px;

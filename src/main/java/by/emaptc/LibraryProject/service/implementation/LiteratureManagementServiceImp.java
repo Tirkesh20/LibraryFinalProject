@@ -10,6 +10,7 @@ import by.emaptc.LibraryProject.service.LiteratureManagementService;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Locale;
 
 public class LiteratureManagementServiceImp implements LiteratureManagementService {
     private final LiteratureManagementDAO dao= DaoProvider.getInstance().getLiteratureManagementDAO();
@@ -30,6 +31,15 @@ public class LiteratureManagementServiceImp implements LiteratureManagementServi
         }
     }
 
+    @Override
+    public LiteratureManagement findByIssueID(int issue_id) throws ServiceException {
+        try {
+            return dao.readByID(issue_id);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
     public List<LiteratureManagement> findIssues(int id) throws ServiceException {
         try {
             return dao.readByUserId(id);
@@ -39,7 +49,7 @@ public class LiteratureManagementServiceImp implements LiteratureManagementServi
     }
 
     public void changeIssueStatus(int id,Status status)throws ServiceException{
-        String s=status.toString();
+        String s=status.toString().toUpperCase(Locale.ROOT);
         try {
             dao.updateIssueStatus(id,s);
         } catch (DAOException e) {
@@ -47,17 +57,34 @@ public class LiteratureManagementServiceImp implements LiteratureManagementServi
         }
     }
 
-    public int userHasLimit(int userId) throws ServiceException {
+    public boolean userHasLimit(int userId) throws ServiceException {
         try {
-            return dao.countUserIssues(userId);
+            int issues=dao.countUserIssues(userId);
+            if (issues>5){
+                return true;
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+        return false;
+    }
+
+    public void returnIssue(int user_id, int literature_id) throws ServiceException {
+        try {
+             dao.returnIssue(user_id,literature_id);
+        }catch (DAOException e){
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    public boolean userHasBook(int userId,int literature_id) throws ServiceException {
+        try {
+          return   dao.userHasLiterature(userId,literature_id);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
-    public boolean userHasBook(int userId,int literature_id) {
-        return true;
-    }
     private OffsetDateTime currentDate(){
         return OffsetDateTime.now();
     }

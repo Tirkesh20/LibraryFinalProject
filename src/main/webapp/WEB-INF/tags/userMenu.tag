@@ -66,7 +66,7 @@
                         <a href="${pageContext.request.contextPath}/controller?command=COMMON_LITERATURES">${pageScope.title}</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=COMMON_USER_LITERATURES">${pageScope.issues}</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=USER_LITERATURES">${pageScope.issues}</a>
                     </li>
                     <li>
                         <tag:status/>

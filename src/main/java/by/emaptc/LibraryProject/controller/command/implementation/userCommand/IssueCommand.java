@@ -9,11 +9,13 @@ import by.emaptc.LibraryProject.service.LiteratureService;
 import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class IssueCommand implements Command {
+
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         LiteratureService literatureService= ServiceProvider.getInstance().getLiteratureService();
         HttpSession session=request.getSession();
         User user=(User) session.getAttribute(USER_ATTRIBUTE);

@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.util.PasswordEncoder;
 import by.emaptc.LibraryProject.util.UserDataValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 import static by.emaptc.LibraryProject.controller.command.Page.LOGIN_PAGE_PATH;
@@ -24,7 +25,7 @@ import static by.emaptc.LibraryProject.util.MessageManager.UNSUCCESSFUL_MESSAGE_
 
 public class RegisterCommand implements Command {
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserServiceImpl userService = new UserServiceImpl();
         User user = buildUser(request);
         if (user == null) {

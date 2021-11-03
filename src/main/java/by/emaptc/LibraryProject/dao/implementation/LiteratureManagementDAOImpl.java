@@ -16,13 +16,13 @@ import java.util.List;
 public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
     private static final ThreadLocal<ConnectionManager> threadLocal = new ThreadLocal<>();
     private static final String SQL_DELETE_QUERY="DELETE  from literature_managements where lm_id=?";
-    private static final String SQL_READ_BY_ID_QUERY="Select  from literature_managements where lm_id=?";
+    private static final String SQL_READ_BY_ID_QUERY="Select * from literature_managements where lm_id=?";
     private static final String SQL_READ_BY_USER_ID="SELECT FROM literature_managements where user_id=?";
-    private static final String SQL_UPDATE_ISSUE_STATUS="UPDATE  literature_managements SET status where lm_id=? ";
+    private static final String SQL_UPDATE_ISSUE_STATUS="UPDATE  literature_managements SET issue_status=? where lm_id=? ";
     private static final String SQL_INSERT="INSERT INTO literature_managements ( user_id, literature_id,issue_status, date_of_give, date_to_return) VALUES(?,?,?,?,?)";
     private static final String SQL_COUNT_ISSUES="SELECT COUNT(*) FROM literature_managements where user_id=? and issue_status=?";
     private static final String SQL_EXPIRED_ISSUES=" SELECT * FROM literature_managements"+"WHERE date_to_return < NOW()"+" ORDER BY expiry_date ASC LIMIT 0,30";
-
+    private static final String SQL_RETURN_ISSUE="UPDATE  literature_managements SET issue_status='CLOSED' WHERE user_id=? AND literature_id=? AND literature_managements.issue_status!='CLOSED'";
     protected static final String ID_COLUMN_LABEL = "lm_id";
 
 
@@ -41,9 +41,38 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
 
     public void updateIssueStatus(int issue_id,String status)throws DAOException{
         String id=String.valueOf(issue_id);
-        List<String> params = Arrays.asList(id, status);
+        List<String> params = Arrays.asList(status,id);
         executeQuery(SQL_UPDATE_ISSUE_STATUS,params);
     }
+
+
+    @Override
+    public void returnIssue(int userId, int literatureId) throws DAOException {
+        String uId=String.valueOf(userId);
+        String lId=String.valueOf(literatureId);
+        List<String> params=Arrays.asList(uId,lId);
+  executeQuery(SQL_RETURN_ISSUE,params);
+    }
+
+    @Override
+    public boolean userHasLiterature(int user_id,int literatureId) throws DAOException {
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_COUNT_ISSUES)){
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.executeUpdate();
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()){
+                    return true;
+                }
+            }
+        }catch (SQLException exception) {
+            throw new DAOException(exception.getMessage());
+        }finally {
+            close();
+        }
+        return false;
+    }
+
     public void deleteById(int id) throws DAOException {
         List<String> params = Collections.singletonList(String.valueOf(id));
         executeQuery(SQL_DELETE_QUERY, params);
@@ -75,6 +104,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
     }
 
     public int insert(LiteratureManagement literatureManagement) throws DAOException {
+        startTransaction();
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS)) {
@@ -88,6 +118,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
                 }
             }
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }finally {
             close();
@@ -108,7 +139,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
             literature.setLiterature_id(Integer.parseInt(result.getString("literature_id")));
             literature.setUser_id(Integer.parseInt(result.getString("user_id")));
             literature.setStatus(Status.valueOf(result.getString("issue_status")));
-            literature.setDateOfGive(result.getObject("date_of_give ",OffsetDateTime.class));
+            literature.setDateOfGive(result.getObject("date_of_give",OffsetDateTime.class));
             literature.setDateToReturn(result.getObject("date_to_return",OffsetDateTime.class));
             return literature;
         }catch (SQLException e){
@@ -185,6 +216,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
             if (parameters != null) {
                 int parameterIndex = 1;
                 for (String parameter : parameters) {
+                    System.out.println(parameterIndex+ parameter);
                     preparedStatement.setObject(parameterIndex++, parameter);
                 }
             }
@@ -205,7 +237,8 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
             buildStatement(parameters,preparedStatement);
             preparedStatement.executeUpdate();
         }catch (SQLException exception) {
-            throw new DAOException(exception.getMessage(), exception);
+            rollbackTransaction();
+            throw new DAOException(exception.getMessage());
         }finally {
             close();
         }
@@ -226,6 +259,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
         connectionManager.close();
         threadLocal.remove();
     }
+
     private Connection getConnection() {
         ConnectionManager cm = threadLocal.get();
         if (cm != null) {

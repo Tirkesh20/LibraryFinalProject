@@ -21,7 +21,16 @@ public class UserDAOImpl implements UserDAO {
     private  static final String SQL_INSERT="INSERT INTO users (name, lastname ,username, password, email, status) VALUES(?,?,?,?,?,?)";
     private static final String SQL_UPDATE_STATUS = "UPDATE users SET status=? WHERE u_id=?";
 
+
+    /**
+     *
+     * @param login {@code String} unique name of user which will be checked on logging into system
+     * @param password {@code String} password of user encrypted by BCrypt
+     * @return user {@code User} entity of login or null
+     * @throws DAOException custom exception for catching sql exception
+     */
     public User login(String login, String password) throws DAOException {
+        startTransaction();
         List<String> params = Arrays.asList(login, password);
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY)){
@@ -39,6 +48,12 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /**
+     *
+     * @param userID {@code int} unique number of element which will be updated
+     * @param status {@code String} parameter on which will be based updating
+     * @throws DAOException custom exception for catching sql exception
+     */
     public void updateStatus(int userID, String status) throws DAOException {
         startTransaction();
         String id=String.valueOf(userID);
@@ -49,27 +64,20 @@ public class UserDAOImpl implements UserDAO {
             buildStatement(params,preparedStatement);
             preparedStatement.executeUpdate();
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }finally {
             close();
         }
     }
 
-    public boolean containsLogin(String login) throws DAOException {
-        String sqlQuery = "SELECT * FROM users WHERE username=?";
-        List<String> params = Collections.singletonList(login);
-        return getEntity(sqlQuery, params) == null;
-    }
-
-
-    public boolean containsEmail(String email) throws DAOException {
-        String sqlQuery = "SELECT * FROM users WHERE email=?";
-        List<String> params = Collections.singletonList(email);
-        return getEntity(sqlQuery, params) == null;
-    }
-
-
-    public int insertUser(User user) throws DAOException {
+    /**
+     *
+     * @param user {@code User} entity which will be added
+     * @return int key of last inserted element
+     * @throws DAOException custom exception for catching sql exception
+     */
+    public int register(User user) throws DAOException {
         startTransaction();
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection
@@ -84,23 +92,36 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }finally {
             close();
         }
-
     }
 
-    private List<String> getEntityParameters(User entity) {
-        String firstName = entity.getName();
-        String lastName = entity.getLastName();
-        String username = entity.getUsername();
-        String password = entity.getPassword();
-        String email = entity.getEmail();
-        String status = entity.getStatus();
-        return Arrays.asList(firstName, lastName, username, password, email, status);
+    /**
+     *
+     * @param login {@code String} unique name of user
+     * @return boolean
+     * @throws DAOException custom exception for catching sql exception
+     */
+    public boolean containsLogin(String login) throws DAOException {
+        String sqlQuery = "SELECT * FROM users WHERE username=?";
+        List<String> params = Collections.singletonList(login);
+        return getEntity(sqlQuery, params) == null;
     }
 
+    /**
+     *
+     * @param email {@code String} password of user encrypted by BCrypt
+     * @return boolean
+     * @throws DAOException custom exception for catching sql exception
+     */
+    public boolean containsEmail(String email) throws DAOException {
+        String sqlQuery = "SELECT * FROM users WHERE email=?";
+        List<String> params = Collections.singletonList(email);
+        return getEntity(sqlQuery, params) == null;
+    }
 
     private void fetchSet(PreparedStatement stmt, User entity) throws SQLException {
         stmt.setString(1,entity.getName());
@@ -116,7 +137,7 @@ public class UserDAOImpl implements UserDAO {
      *
      * @param parameters {@code List<String>} list of parameters which will use in SQL QUERY execution
      * @param preparedStatement {@code PreparedStatement}
-     * @throws DAOException
+     * @throws DAOException custom exception for catching sql exception
      */
     private void buildStatement ( List < String > parameters, PreparedStatement preparedStatement) throws DAOException {
         try {
@@ -131,12 +152,14 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+
+
     private User getEntity (String sqlQuery, List < String > params) throws DAOException{
         startTransaction();
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             buildStatement(params,preparedStatement);
-            try(ResultSet   resultSet = preparedStatement.executeQuery();) {
+            try(ResultSet   resultSet = preparedStatement.executeQuery()) {
                 return resultSet.next() ? buildEntity(resultSet) : null;
             }
         } catch (SQLException e) {
@@ -147,8 +170,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     /** @param resultSet {@code ResultSet}
-     * @return {@code T} creates and returns entity with initialized fields
-     * @throws DAOException
+     * @return {@code User} creates and returns entity with initialized fields
+     * @throws DAOException custom exception for catching sql exception
      * */
 
     private User buildEntity(ResultSet resultSet) throws  DAOException {
@@ -166,24 +189,6 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOException(e.getMessage());
 
         }}
-    /**
-     *
-     * @param sqlQuery {@code String} sql query for given task
-     * @param parameters {@code List<String> list of parameters which will use in SQL QUERY execution
-     * @throws DAOException
-     */
-    private void executeQuery(String sqlQuery, List<String> parameters) throws DAOException {
-        startTransaction();
-        try(Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-            buildStatement(parameters,preparedStatement);
-            preparedStatement.executeUpdate();
-        }catch (SQLException exception) {
-            throw new DAOException(exception.getMessage(), exception);
-        }finally {
-            close();
-        }
-    }
 
     private void startTransaction() {
         ConnectionManager connectionManager = new ConnectionManager();
@@ -200,6 +205,7 @@ public class UserDAOImpl implements UserDAO {
         connectionManager.close();
         threadLocal.remove();
     }
+
     private Connection getConnection() {
         ConnectionManager cm = threadLocal.get();
         if (cm != null) {

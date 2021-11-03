@@ -38,10 +38,10 @@ public enum CommandType {
      */
 
     CONFIRM_ISSUE_LITERATURE(new IssueConfirmCommand()),
-    COMMON_USER_LITERATURES(new ShowUserBooksCommand()),
+    USER_LITERATURES(new UserLiteratures()),
     ISSUE_LITERATURE(new IssueCommand()),
     ADD_FEEDBACK(new AddFeedbackCommand()),
-    COMMON_RETURN_ISSUE(new ReturnIssueCommand());
+    RETURN_ISSUE(new ReturnIssueCommand());
 
     private final Command command;
 

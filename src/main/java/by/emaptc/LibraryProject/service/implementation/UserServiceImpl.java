@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     public int registerUser(User user) throws ServiceException {
         try {
-            return   userDAO.insertUser(user);
+            return   userDAO.register(user);
         } catch (DAOException e) {
             throw new ServiceException("Exception during user register operation user = [" + user.toString() + "]", e);
         }

@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 import by.emaptc.LibraryProject.service.implementation.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static by.emaptc.LibraryProject.util.MessageManager.LOGIN_ERROR_MESSAGE_KEY;
@@ -21,7 +22,7 @@ public class LoginCommand implements Command {
      *
      */
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserService userService= ServiceProvider.getInstance().getUserService();
         HttpSession currentSession = request.getSession();
         String login = request.getParameter(LOGIN_PARAMETER);

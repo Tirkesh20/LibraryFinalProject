@@ -1,0 +1,2 @@
+insert into literatures( name, author, genres, isAvailable, type, pages, publisher)  values ('Goshgylar','Magtymguly','POEM',true,'LITERATURE',700,'TKM');
+insert into literatures( name, author, genres, isAvailable, type, pages, publisher)  values ('Hobbit','J. R. R. Tolkien.','fantasy',true,'LITERATURE',700,'ACT')

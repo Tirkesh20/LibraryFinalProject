@@ -5,6 +5,7 @@ import by.emaptc.LibraryProject.controller.command.Page;
 import by.emaptc.LibraryProject.util.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.jstl.core.Config;
 import java.util.Locale;
 
@@ -18,7 +19,7 @@ import static by.emaptc.LibraryProject.util.MessageManager.DEFAULT_LOCALE;
  */
 public class LanguageCommand implements Command {
     @Override
-    public Page execute(HttpServletRequest request) {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) {
         String localeValue = request.getParameter("locale");
         Locale locale = switch (localeValue) {
             case "ru" -> new Locale("ru", "RU");

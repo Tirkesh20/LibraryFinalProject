@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class HomePageCommand implements Command {
@@ -19,7 +20,7 @@ public class HomePageCommand implements Command {
     }
 
     @Override
-    public Page execute(HttpServletRequest request){
+    public Page execute(HttpServletRequest request, HttpServletResponse response){
         try {
             List<Feedback> feedbacks= feedbackService.mostLiked();
             request.setAttribute("feedbacks",feedbacks);

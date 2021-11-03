@@ -28,6 +28,7 @@ public class FeedbackDAO {
                 }
             }
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }
     }

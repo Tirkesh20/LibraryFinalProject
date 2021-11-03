@@ -17,7 +17,7 @@ public class LiteratureDAOImpl implements LiteratureDAO {
     private static final String SQL_READ_BY_ID_QUERY="SELECT * FROM literatures where l_id=?";
     private static final String SQL_READ_ALL_QUERY="SELECT * FROM literatures";
     private static final String SQL_INSERT="INSERT INTO literatures (name, author ,genres,isAvailable,type, pages,publisher) VALUES(?,?,?,?,?,?,?)";
-    private static final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT * FROM literature_managements "+"INNER JOIN literatures ON literature_managements.literature_id=literatures.id "+"WHERE user_id=?";
+    private static final String SQL_READ_ALL_USER_LITERATURE_QUERY="SELECT * FROM literature_managements "+"INNER JOIN literatures ON literature_managements.literature_id=literatures.l_id "+"WHERE user_id=? AND issue_status!='CLOSED'";
     private static final String SQL_ROW_CALC="SELECT SQL_CALC_FOUND_ROWS * from literatures limit ";
     private final String SQL_USER_ROW_CALC="SELECT SQL_CALC_FOUND_ROWS * from literatures limit ";
     protected static final String ID_COLUMN_LABEL = "l_id";
@@ -44,6 +44,7 @@ public class LiteratureDAOImpl implements LiteratureDAO {
                 }
             }
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }
     }
@@ -71,14 +72,6 @@ public class LiteratureDAOImpl implements LiteratureDAO {
         return getEntities(SQL_READ_ALL_QUERY,params);
     }
 
-    private List<String> getEntityParameters(Literature entity) {
-        String literatureName = entity.getLiteratureName();
-        String author=entity.getAuthor();
-        String genre = entity.getGenre().toString();
-        String literatureType = entity.getLiteratureType().toString();
-        String isAvailable = String.valueOf(entity.isAvailable());
-        return Arrays.asList(literatureName, author, genre, literatureType, isAvailable);
-    }
 
     private Literature buildEntity(ResultSet result) throws DAOException {
         try {
@@ -186,6 +179,7 @@ public class LiteratureDAOImpl implements LiteratureDAO {
             buildStatement(parameters,preparedStatement);
             preparedStatement.executeUpdate();
         }catch (SQLException exception) {
+            rollbackTransaction();
             throw new DAOException(exception.getMessage(), exception);
         }finally {
             close();
@@ -227,6 +221,7 @@ public class LiteratureDAOImpl implements LiteratureDAO {
         connectionManager.close();
         threadLocal.remove();
     }
+
     private Connection getConnection() {
         ConnectionManager cm = threadLocal.get();
         if (cm != null) {

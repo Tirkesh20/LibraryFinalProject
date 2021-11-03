@@ -5,6 +5,7 @@ import by.emaptc.LibraryProject.controller.command.Page;
 import by.emaptc.LibraryProject.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ChangeBehaviorCommand implements Command {
 
@@ -14,7 +15,7 @@ public class ChangeBehaviorCommand implements Command {
      *
      */
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         return null;
     }
 }

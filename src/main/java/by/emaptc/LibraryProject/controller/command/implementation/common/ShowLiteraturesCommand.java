@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 /**
  *
@@ -19,14 +20,17 @@ import java.util.List;
  *
  */
 public class ShowLiteraturesCommand implements Command {
+
     private static final Logger LOGGER= LogManager.getLogger(ShowLiteraturesCommand.class.getName());
+
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         LiteratureService literatureService= ServiceProvider.getInstance().getLiteratureService();
         int page=1;
         int recordsPerPage=5;
-        if (request.getParameter("page")!=null)
-            page=Integer.parseInt(request.getParameter("page"));
+        if (request.getParameter("page")!=null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
         try {
             List<Literature> literatureList=literatureService.readAll((page-1)*recordsPerPage,recordsPerPage);
             int noOfRecord=literatureService.noOfRecord();

@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 import by.emaptc.LibraryProject.service.implementation.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class DeleteUserCommand implements Command {
 
@@ -18,7 +19,7 @@ public class DeleteUserCommand implements Command {
      *
      */
     @Override
-    public Page execute(HttpServletRequest request) throws ServiceException {
+    public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserService userService=ServiceProvider.getInstance().getUserService();
         User user=(User) request.getSession().getAttribute("user");
         String role=user.getRole().toString();

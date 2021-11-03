@@ -38,7 +38,7 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             Command command = commandFactory.getCommand(req);
-            Page page = command.execute(req);
+            Page page = command.execute(req,resp);
             boolean isRedirect = page.isRedirect();
             if (isRedirect) {
                 redirect(page, req, resp);
