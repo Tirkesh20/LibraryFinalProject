@@ -14,7 +14,7 @@ Pagination
 Double validation
 Localization: EN, RU
 
-First Header | Second Header | Third Header | Admin
+Command | Guest | Users | Admin
 ------------ | ------------- | ------------ | -----
 Change language |  *  |	 *  |  *
 View most popular literatures |	*	 |   *  |	 *
