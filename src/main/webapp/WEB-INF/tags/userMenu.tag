@@ -77,7 +77,7 @@
                         <a href="${pageContext.request.contextPath}/controller?command=COMMON_LITERATURES">${pageScope.literatures}</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=Add_literature">${pageScope.Add}</a>
+                        <a href="${pageContext.request.contextPath}/addLiterature">${pageScope.Add}</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/controller?command=show_users">${pageScope.show_users}</a>

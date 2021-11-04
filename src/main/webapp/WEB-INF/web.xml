@@ -40,6 +40,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddLiterature</servlet-name>
+        <jsp-file>/WEB-INF/jsp/adminPage/addLiteraturePage.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddLiterature</servlet-name>
+        <url-pattern>/addLiterature</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>UsersLiteratures</servlet-name>
         <jsp-file>/WEB-INF/jsp/userPage/userLiteratureList.jsp</jsp-file>
     </servlet>

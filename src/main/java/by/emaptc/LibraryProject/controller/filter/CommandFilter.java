@@ -43,6 +43,7 @@ public class CommandFilter implements Filter {
         if (command == null){
             return true;
         }
+
         String commandTypeValue = command.toUpperCase();
         CommandType currentType = CommandType.getCommand(commandTypeValue);
         HttpSession session = req.getSession();
@@ -53,6 +54,7 @@ public class CommandFilter implements Filter {
         if (user==null){
             return false;
         }
+
         String role = user.getRole().toString();
         if ("ADMIN".equals(role) && adminCommand.contains(currentType)) {
             return true;

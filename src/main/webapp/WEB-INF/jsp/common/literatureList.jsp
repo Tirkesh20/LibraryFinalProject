@@ -9,6 +9,8 @@
     <fmt:message key="literature.pages" var="pages"/>
     <fmt:message key="literature.publisher" var="publisher"/>
     <fmt:message key="literature.type" var="type"/>
+    <fmt:message key="literature.action" var="action"/>
+    <fmt:message key="literature.edit" var="edit"/>
 </fmt:bundle>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -33,6 +35,7 @@
         <th>${pageScope.type}</th>
         <th>${pageScope.pages}</th>
         <th>${pageScope.publisher}</th>
+        <th>${pageScope.action}</th>
     </tr>
 
     <c:forEach var="literature" items="${literatures}">
@@ -43,7 +46,16 @@
             <td>${literature.literatureType}</td>
             <td>${literature.bookPages}</td>
             <td>${literature.publisher}</td>
-            <td><a href="${pageContext.request.contextPath}/controller?command=ISSUE_LITERATURE&literature_id=${literature.id}">issue </a></td>
+            <c:choose>
+                <c:when test="${sessionScope.user.role == 'USER' }">
+                    <td><a href="${pageContext.request.contextPath}/controller?command=ISSUE_LITERATURE&literature_id=${literature.id}">issue </a></td>
+                </c:when>
+                <c:when test="${sessionScope.user.role == 'ADMIN' }">
+                    <td><a href="${pageContext.request.contextPath}/controller?command=DELETE_LITERATURE&literature_id=${literature.id}">{${pageScope.edit}}</td>
+                    <td><a href="${pageContext.request.contextPath}/controller?command=EDIT&literature_id=${literature.id}">{${pageScope.edit}}</td>
+                </c:when>
+            </c:choose>
+
         </tr>
     </c:forEach>
 </table>

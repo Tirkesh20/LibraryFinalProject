@@ -22,6 +22,7 @@ public class ContextListener implements ServletContextListener {
      */
 
     public void contextDestroyed(ServletContextEvent sce) {
+        LOG.warn("Pool closed");
             ConnectionPool.retrieveConnectionPool().closePool();
     }
 
@@ -29,6 +30,7 @@ public class ContextListener implements ServletContextListener {
      * Initializes connection pool
      */
     public void contextInitialized(ServletContextEvent sce) {
+        LOG.warn("Pool initialized");
         ConnectionPool.retrieveConnectionPool();
     }
 

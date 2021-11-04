@@ -32,7 +32,7 @@
         </p>
         <p><span>${pageScope.genre}</span>
         <p><label>
-            <select name=${pageScope.genre} class="log_input" required >
+            <select name=genre class="log_input" required >
                 <option >HORROR</option>
                 <option >HISTORICAL</option>
                 <option >POEM</option>

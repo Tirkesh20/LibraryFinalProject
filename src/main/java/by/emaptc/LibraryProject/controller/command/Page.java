@@ -19,6 +19,7 @@ public class Page  {
      *admin pages
      */
     public static final String EDIT_RATE_PAGE_PATH = "/WEB-INF/jsp/admin/editRate.jsp";
+    public static final String EDIT_Literature = "/WEB-INF/jsp/admin/addLiteraturePage.jsp";
     public static final String RATE_HISTORY_PAGE_PATH = "/WEB-INF/jsp/admin/rateHistory.jsp";
     private String url;
     private boolean redirect;

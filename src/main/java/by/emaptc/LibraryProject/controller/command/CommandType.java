@@ -1,11 +1,8 @@
 package by.emaptc.LibraryProject.controller.command;
 
-import by.emaptc.LibraryProject.controller.command.implementation.adminCommand.ChangeBehaviorCommand;
-import by.emaptc.LibraryProject.controller.command.implementation.adminCommand.AddLiteratureCommand;
+import by.emaptc.LibraryProject.controller.command.implementation.adminCommand.*;
 import by.emaptc.LibraryProject.controller.command.implementation.userCommand.*;
-import by.emaptc.LibraryProject.controller.command.implementation.adminCommand.DeleteUserCommand;
 import by.emaptc.LibraryProject.controller.command.implementation.common.ShowLiteraturesCommand;
-import by.emaptc.LibraryProject.controller.command.implementation.adminCommand.ShowUserCommand;
 import by.emaptc.LibraryProject.controller.command.implementation.authCommand.RegisterCommand;
 import by.emaptc.LibraryProject.controller.command.implementation.authCommand.LogOutCommand;
 import by.emaptc.LibraryProject.controller.command.implementation.authCommand.LoginCommand;
@@ -25,6 +22,7 @@ public enum CommandType {
     EDIT_RATE(new ChangeBehaviorCommand()),
     ADD_LITERATURE(new AddLiteratureCommand()),
     DELETE_USER(new DeleteUserCommand()),
+    DELETE_LITERATURE(new DeleteLiteratureCommand()),
     /**
      * Common commands.
      */

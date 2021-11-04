@@ -11,6 +11,7 @@ import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  *
@@ -25,7 +26,7 @@ public class AddLiteratureCommand implements Command {
         String literatureName=request.getParameter("literature_name");
         String author=request.getParameter("author");
         String genre=request.getParameter("genre");
-        String type=request.getParameter("type");
+        String type=request.getParameter("type").toUpperCase(Locale.ROOT);
         int pages=Integer.parseInt(request.getParameter("pages"));
         String publisher=request.getParameter("publisher");
         Literature literature=new Literature();
