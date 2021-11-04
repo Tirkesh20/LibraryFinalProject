@@ -4,7 +4,6 @@ import by.emaptc.LibraryProject.controller.command.Command;
 import by.emaptc.LibraryProject.controller.command.CommandFactory;
 import by.emaptc.LibraryProject.controller.command.Page;
 import by.emaptc.LibraryProject.exception.ServiceException;
-import by.emaptc.LibraryProject.dao.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -31,8 +30,6 @@ public class Controller extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        ConnectionPool connectionPool = ConnectionPool.retrieveConnectionPool();
-        connectionPool.closePool();
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

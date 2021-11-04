@@ -25,18 +25,16 @@ public class IssueConfirmCommand implements Command {
         User user=(User) session.getAttribute(USER_ATTRIBUTE);
         if (user==null)
             return new Page(Page.LOGIN_PAGE_PATH,false);
-
         int userId=user.getId();
-        int bookId= Integer.parseInt(request.getParameter("literature_id"));
+        int literatureId= Integer.parseInt(request.getParameter("literature_id"));
         int returnDay=Integer.parseInt(request.getParameter("return_date"));
 
-        if (!literatureManagementService.userHasBook(userId,bookId)
+        if (!literatureManagementService.userHasBook(userId,literatureId)
                 &&(!literatureManagementService.userHasLimit(userId))){
-            literatureManagementService.issueABook(userId,bookId,returnDay);
-            return new Page("/controller?command=USER_LITERATURE",false);
+            literatureManagementService.issueABook(userId,literatureId,returnDay);
+            return new Page("/controller?command=COMMON_LITERATURES",true);
         }
-
-        return new Page( "/controller?command=COMMON_LITERATURES",true);
+        return new Page( "/controller?command=COMMON_LITERATURES",false);
     }
 
 }

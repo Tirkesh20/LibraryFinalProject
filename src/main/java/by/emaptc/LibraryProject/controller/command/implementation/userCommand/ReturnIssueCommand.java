@@ -9,6 +9,7 @@ import by.emaptc.LibraryProject.service.implementation.ServiceProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,7 +21,8 @@ public class ReturnIssueCommand implements Command {
     @Override
     public Page execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         LiteratureManagementService literatureManagementService= ServiceProvider.getInstance().getLiteratureManagementService();
-        User user=(User) request.getSession().getAttribute("user");
+        HttpSession session=request.getSession();
+        User user=(User) session.getAttribute(USER_ATTRIBUTE);
         int literatureId=Integer.parseInt(request.getParameter("literature_id"));
         int userId=user.getId();
         literatureManagementService.returnIssue(userId,literatureId);

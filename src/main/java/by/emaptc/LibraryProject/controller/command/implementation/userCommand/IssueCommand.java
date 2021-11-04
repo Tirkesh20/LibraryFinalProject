@@ -21,6 +21,7 @@ public class IssueCommand implements Command {
         User user=(User) session.getAttribute(USER_ATTRIBUTE);
         if (user==null)
             return new Page(Page.LOGIN_PAGE_PATH,true);
+
         int literature_id= Integer.parseInt(request.getParameter("literature_id"));
         Literature literature=literatureService.read(literature_id);
         session.setAttribute("literature",literature);

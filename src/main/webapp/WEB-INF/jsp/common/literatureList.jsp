@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ taglib prefix="tag" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <fmt:bundle basename="page_content">
     <fmt:message key="literatures.title" var="title"/>
     <fmt:message key="literature.name" var="name"/>
@@ -17,12 +16,16 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/literature_list.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
     <title>${pageScope.title}</title>
 </head>
 <body>
 
-<table name="table" id="table" border="1" cellpadding="6" cellspacing="6">
+<div>
+    <tag:userMenu/>
+</div>
+
+<table  id="table" border="1" cellpadding="6" cellspacing="6">
     <tr>
         <th>${pageScope.name}</th>
         <th>${pageScope.author}</th>
@@ -31,6 +34,7 @@
         <th>${pageScope.pages}</th>
         <th>${pageScope.publisher}</th>
     </tr>
+
     <c:forEach var="literature" items="${literatures}">
         <tr>
             <td>${literature.literatureName}</td>
@@ -46,7 +50,7 @@
 
 <%--For displaying Previous link except for the 1st page --%>
 <c:if test="${currentPage != 1}">
-    <td><a href="${pageContext.request.contextPath}/controller?page=${currentPage - 1}">Previous</a></td>
+    <td><a href="${pageContext.request.contextPath}/controller?command=COMMON_Literatures&page=${currentPage - 1}">Previous</a></td>
 </c:if>
 <%--For displaying Page numbers.
 The when condition does not display a link for the current page--%>
@@ -58,7 +62,7 @@ The when condition does not display a link for the current page--%>
                     <td>${i}</td>
                 </c:when>
                 <c:otherwise>
-                    <td><a href="${pageContext.request.contextPath}/controller?page=${i}">${i}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/controller?command=COMMON_LITERATURES&page=${i}">${i}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
@@ -67,7 +71,7 @@ The when condition does not display a link for the current page--%>
 
 <%--For displaying Next link --%>
 <c:if test="${currentPage lt noOfPages}">
-    <td><a href="employee.do?page=${currentPage + 1}">Next</a></td>
+    <td><a href="${pageContext.request.contextPath}/controller?command=COMMON_LITERATURES&page=${currentPage + 1}">Next</a></td>
 </c:if>
 
 </body>

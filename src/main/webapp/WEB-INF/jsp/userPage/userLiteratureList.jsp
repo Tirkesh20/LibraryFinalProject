@@ -27,11 +27,9 @@
     <title>${pageScope.title}</title>
 </head>
 <body>
-<div>
-    <tag:userMenu/>
-</div>
 
-<table name="table" id="table" border="1" cellpadding="6" cellspacing="6">
+    <tag:userMenu/>
+<table  id="table" border="1" cellpadding="6" cellspacing="6">
     <tr>
         <th>${pageScope.name}</th>
         <th>${pageScope.author}</th>

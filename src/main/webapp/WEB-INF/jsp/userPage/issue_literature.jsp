@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 
 <fmt:bundle basename="page_content">
     <fmt:message key="issue.confirm" var="confirm"/>
@@ -13,10 +14,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static.contents/css/main.css">
     <title>Issue book</title>
 </head>
 <body>
-<tag:userMenu/>
+<div>
+    <tag:userMenu/>
+</div>
+
 <div class="issue_form">
     <form id="issueForm" name="IssueForm" method="POST" action="${pageContext.request.contextPath}/controller">
         <input type="hidden" name="command" value="CONFIRM_ISSUE_LITERATURE"/>

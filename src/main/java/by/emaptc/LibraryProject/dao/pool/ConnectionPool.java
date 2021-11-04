@@ -41,6 +41,8 @@ public class ConnectionPool {
         return instance;
     }
 
+
+
     public Connection getConnection() {
         Connection connection;
         poolLocker.lock();

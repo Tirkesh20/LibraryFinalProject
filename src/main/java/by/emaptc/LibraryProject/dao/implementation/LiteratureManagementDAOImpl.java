@@ -20,11 +20,11 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
     private static final String SQL_READ_BY_USER_ID="SELECT FROM literature_managements where user_id=?";
     private static final String SQL_UPDATE_ISSUE_STATUS="UPDATE  literature_managements SET issue_status=? where lm_id=? ";
     private static final String SQL_INSERT="INSERT INTO literature_managements ( user_id, literature_id,issue_status, date_of_give, date_to_return) VALUES(?,?,?,?,?)";
-    private static final String SQL_COUNT_ISSUES="SELECT COUNT(*) FROM literature_managements where user_id=? and issue_status=?";
+    private static final String SQL_COUNT_ISSUES="SELECT COUNT(*) FROM literature_managements WHERE user_id=? AND issue_status=? AND issue_status!='CLOSED'";
     private static final String SQL_EXPIRED_ISSUES=" SELECT * FROM literature_managements"+"WHERE date_to_return < NOW()"+" ORDER BY expiry_date ASC LIMIT 0,30";
     private static final String SQL_RETURN_ISSUE="UPDATE  literature_managements SET issue_status='CLOSED' WHERE user_id=? AND literature_id=? AND literature_managements.issue_status!='CLOSED'";
     protected static final String ID_COLUMN_LABEL = "lm_id";
-
+    private static final String SQL_RETURN_ISSUE_ID="SELECT lm_id FROM literature_managements where user_id=? AND literature_id=? AND issue_status!='CLOSED'";
 
     public LiteratureManagement readByID(int id) throws DAOException {
         List<String> params = Collections.singletonList(String.valueOf(id));
@@ -56,10 +56,11 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
 
     @Override
     public boolean userHasLiterature(int user_id,int literatureId) throws DAOException {
+        startTransaction();
         try(Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_COUNT_ISSUES)){
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_RETURN_ISSUE_ID)){
             preparedStatement.setInt(1,user_id);
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(2,literatureId);
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()){
                     return true;
@@ -86,6 +87,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
      */
 
     private List<LiteratureManagement> getEntities (String sqlQuery, List < String > params) throws DAOException {
+        startTransaction();
         List <LiteratureManagement> list=new LinkedList<>();
         try(Connection connection =getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)){
@@ -169,6 +171,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
      * @throws DAOException custom exception for catching SQL exception
      */
     public int countUserIssues(int userId) throws DAOException {
+        startTransaction();
         String id=String.valueOf(userId);
         String status="ISSUED";
         List<String> params = Arrays.asList(id, status);
@@ -176,7 +179,6 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_COUNT_ISSUES)){
             buildStatement(params,preparedStatement);
-            preparedStatement.executeUpdate();
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()){
                     count= resultSet.getInt(1);
@@ -191,10 +193,11 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
     }
 
     private LiteratureManagement getEntity (String sqlQuery, List < String > params) throws DAOException {
+        startTransaction();
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             buildStatement(params,preparedStatement);
-            try(ResultSet   resultSet = preparedStatement.executeQuery();) {
+            try(ResultSet   resultSet = preparedStatement.executeQuery()) {
                 return resultSet.next() ? buildEntity(resultSet) : null;
             }
         } catch (SQLException e) {
@@ -232,6 +235,7 @@ public class LiteratureManagementDAOImpl implements LiteratureManagementDAO {
      * @throws DAOException custom exception for catching SQL exception
      */
     private void executeQuery(String sqlQuery, List<String> parameters) throws DAOException {
+        startTransaction();
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             buildStatement(parameters,preparedStatement);
