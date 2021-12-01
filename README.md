@@ -31,6 +31,4 @@ Issue  literature		             |		 |	 *  |
 
 Commands which will be added
 View User profile and change user's information.
-View history of orders.
-Pay for order with help of bonuses.
 Leave and view feedbacks.
