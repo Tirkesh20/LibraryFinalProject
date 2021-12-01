@@ -34,4 +34,3 @@ View User profile and change user's information.
 View history of orders.
 Pay for order with help of bonuses.
 Leave and view feedbacks.
-Add and remove drinks, fulfill the machine with ingredients.
