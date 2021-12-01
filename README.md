@@ -30,5 +30,6 @@ Issue  literature		             |		 |	 *  |
 
 
 Commands which will be added
+Complete localization for RU language
 View User profile and change user's information.
 Leave and view feedbacks.
